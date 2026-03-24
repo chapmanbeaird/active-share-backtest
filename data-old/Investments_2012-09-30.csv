@@ -1,0 +1,500 @@
+Company,Weight,Ticker,Headquarters,GICS Sector,GICS Sub-Industry
+"Apple, Inc.",4.856,AAPL,"Cupertino, California",Information Technology,"Technology Hardware, Storage & Peripherals"
+Exxon Mobil Corp.,3.277,XOM,"Irving, Texas",Energy,Integrated Oil & Gas
+General Electric Co.,1.862,GE,"Evendale, Ohio",Industrials,Aerospace & Defense
+Chevron Corp.,1.776,CVX,"Houston, Texas",Energy,Integrated Oil & Gas
+Microsoft Corp.,1.744,MSFT,"Redmond, Washington",Information Technology,Systems Software
+International Business Machines Corp.,1.732,IBM,"Armonk, New York",Information Technology,IT Consulting & Other Services
+"AT&T, Inc.",1.689,T,"Dallas, Texas",Communication Services,Integrated Telecommunication Services
+"Google, Inc. (Class A)",1.55,GOOGL,"Mountain View, California",Communication Services,Interactive Media & Services
+The Procter & Gamble Co.,1.483,PG,"Cincinnati, Ohio",Consumer Staples,Personal Care Products
+Johnson & Johnson,1.475,JNJ,"New Brunswick, New Jersey",Health Care,Pharmaceuticals
+"Pfizer, Inc.",1.441,PFE,"New York City, New York",Health Care,Pharmaceuticals
+Wells Fargo & Co.,1.319,WFC,"San Francisco, California",Financials,Diversified Banks
+"Berkshire Hathaway, Inc. (Class B)",1.255,BRK.B,"Omaha, Nebraska",Financials,Multi-Sector Holdings
+JPMorgan Chase & Co.,1.194,JPM,"New York City, New York",Financials,Diversified Banks
+"Philip Morris International, Inc.",1.177,PM,"New York City, New York",Consumer Staples,Tobacco
+The Coca-Cola Co.,1.14,KO,"Atlanta, Georgia",Consumer Staples,Soft Drinks & Non-alcoholic Beverages
+"Merck & Co., Inc.",1.066,MRK,"Kenilworth, New Jersey",Health Care,Pharmaceuticals
+"Verizon Communications, Inc.",1.008,VZ,"New York City, New York",Communication Services,Integrated Telecommunication Services
+"Wal-Mart Stores, Inc.",0.963,WMT,"Bentonville, Arkansas",Consumer Staples,Consumer Staples Merchandise Retail
+Oracle Corp.,0.931,ORCL,"Austin, Texas",Information Technology,Application Software
+Intel Corp.,0.881,INTC,"Santa Clara, California",Information Technology,Semiconductors
+"PepsiCo, Inc.",0.855,PEP,"Purchase, New York",Consumer Staples,Soft Drinks & Non-alcoholic Beverages
+Abbott Laboratories,0.835,ABT,"North Chicago, Illinois",Health Care,Health Care Equipment
+"QUALCOMM, Inc.",0.826,QCOM,"San Diego, California",Information Technology,Semiconductors
+"Cisco Systems, Inc.",0.784,CSCO,"San Jose, California",Information Technology,Communications Equipment
+"Schlumberger, Ltd.",0.745,SLB,"Houston, Texas",Energy,Oil & Gas Equipment & Services
+"Citigroup, Inc.",0.745,C,"New York City, New York",Financials,Diversified Banks
+Comcast Corp. (Class A),0.743,CMCSA,"Philadelphia, Pennsylvania",Communication Services,Cable & Satellite
+Bank of America Corp.,0.739,BAC,"Charlotte, North Carolina",Financials,Diversified Banks
+The Walt Disney Co.,0.728,DIS,"Burbank, California",Communication Services,Movies & Entertainment
+McDonald’s Corp.,0.718,MCD,"Chicago, Illinois",Consumer Discretionary,Restaurants
+"Amazon.com, Inc.",0.714,AMZN,"Seattle, Washington",Consumer Discretionary,Broadline Retail
+"The Home Depot, Inc.",0.708,HD,"Atlanta, Georgia",Consumer Discretionary,Home Improvement Retail
+"Kraft Foods, Inc. (Class A)",0.57,KRFT,"Northfield, IL",Consumer Staples,Packaged Foods & Meats
+"Visa, Inc. (Class A)",0.544,V,"San Francisco, California",Financials,Transaction & Payment Processing Services
+Occidental Petroleum Corp.,0.541,OXY,"Houston, Texas",Energy,Oil & Gas Exploration & Production
+ConocoPhillips,0.54,COP,"Houston, Texas",Energy,Oil & Gas Exploration & Production
+"Altria Group, Inc.",0.527,MO,"Richmond, Virginia",Consumer Staples,Tobacco
+United Technologies Corp.,0.511,UTX,"Farmington, CT",Industrials,Aerospace & Defense
+U.S. Bancorp,0.505,USB,"Minneapolis, Minnesota",Financials,Diversified Banks
+"Amgen, Inc.",0.505,AMGN,"Thousand Oaks, California",Health Care,Biotechnology
+CVS Caremark Corp.,0.478,CVS,"Woonsocket, Rhode Island",Health Care,Health Care Services
+3M Co.,0.457,MMM,"Saint Paul, Minnesota",Industrials,Industrial Conglomerates
+EMC Corp.,0.444,EMC,"Hopkinton, MA",Information Technology,"Technology Hardware, Storage & Peripherals"
+"UnitedHealth Group, Inc.",0.444,UNH,"Eden Prairie, Minnesota",Health Care,Managed Health Care
+Bristol-Myers Squibb Co.,0.44,BMY,"New York City, New York",Health Care,Pharmaceuticals
+Union Pacific Corp.,0.436,UNP,"Omaha, Nebraska",Industrials,Rail Transportation
+"Caterpillar, Inc.",0.436,CAT,"Irving, Texas",Industrials,Construction Machinery & Heavy Transportation Equipment
+American Express Co.,0.436,AXP,"New York City, New York",Financials,Consumer Finance
+"eBay, Inc.",0.436,EBAY,"San Jose, California",Consumer Discretionary,Broadline Retail
+"United Parcel Service, Inc. (Class B)",0.399,UPS,"Sandy Springs, Georgia",Industrials,Air Freight & Logistics
+"The Goldman Sachs Group, Inc.",0.398,GS,"New York City, New York",Financials,Investment Banking & Brokerage
+Express Scripts Holding Co.,0.394,ESRX,"St. Louis, MO",Health Care,Health Care Services
+"Gilead Sciences, Inc.",0.39,GILD,"Foster City, California",Health Care,Biotechnology
+News Corp. (Class A),0.388,NWSA,"New York City, New York",Communication Services,Publishing
+Monsanto Co.,0.377,MON,"St. Louis, MO",Materials,Fertilizers & Agricultural Chemicals
+"MasterCard, Inc. (Class A)",0.376,MA,"Harrison, New York",Financials,Transaction & Payment Processing Services
+Eli Lilly & Co.,0.376,LLY,"Indianapolis, Indiana",Health Care,Pharmaceuticals
+Colgate-Palmolive Co.,0.371,CL,"New York City, New York",Consumer Staples,Household Products
+The Boeing Co.,0.366,BA,"Arlington, Virginia",Industrials,Aerospace & Defense
+E. I. du Pont de Nemours & Co.,0.363,DD,"Wilmington, Delaware",Materials,Specialty Chemicals
+"Honeywell International, Inc.",0.362,HON,"Charlotte, North Carolina",Industrials,Industrial Conglomerates
+"Simon Property Group, Inc.",0.358,SPG,"Indianapolis, Indiana",Real Estate,Retail REITs
+Duke Energy Corp.,0.354,DUK,"Charlotte, North Carolina",Utilities,Electric Utilities
+Accenture PLC (Class A),0.346,ACN,"Dublin, Ireland",Information Technology,IT Consulting & Other Services
+"Medtronic, Inc.",0.342,MDT,"Dublin, Ireland",Health Care,Health Care Equipment
+Costco Wholesale Corp.,0.336,COST,"Issaquah, Washington",Consumer Staples,Consumer Staples Merchandise Retail
+"Time Warner, Inc.",0.333,TWX,"New York, NY",Communication Services,Movies & Entertainment
+Target Corp.,0.322,TGT,"Minneapolis, Minnesota",Consumer Staples,Consumer Staples Merchandise Retail
+Southern Co.,0.313,SO,"Atlanta, Georgia",Utilities,Electric Utilities
+Starbucks Corp.,0.299,SBUX,"Seattle, Washington",Consumer Discretionary,Restaurants
+"American International Group, Inc.",0.297,AIG,"New York City, New York",Financials,Multi-line Insurance
+Ford Motor Co.,0.292,F,"Dearborn, Michigan",Consumer Discretionary,Automobile Manufacturers
+"Freeport-McMoRan Copper & Gold, Inc.",0.292,FCX,"Phoenix, Arizona",Materials,Copper
+"MetLife, Inc.",0.284,MET,"New York City, New York",Financials,Life & Health Insurance
+"Biogen Idec, Inc.",0.274,BIIB,"Cambridge, Massachusetts",Health Care,Biotechnology
+Emerson Electric Co.,0.273,EMR,"Ferguson, Missouri",Industrials,Electrical Components & Equipment
+Anadarko Petroleum Corp.,0.271,APC,"The Woodlands, TX",Energy,Oil & Gas Exploration & Production
+"NIKE, Inc. (Class B)",0.271,NKE,"Washington County, Oregon",Consumer Discretionary,"Apparel, Accessories & Luxury Goods"
+The Dow Chemical Co.,0.269,DOW,"Midland, Michigan",Materials,Commodity Chemicals
+"Lowe’s Cos., Inc.",0.268,LOW,"Mooresville, North Carolina",Consumer Discretionary,Home Improvement Retail
+"National-Oilwell Varco, Inc.",0.265,NOV,"Houston, TX",Energy,Oil & Gas Equipment & Services
+Kimberly-Clark Corp.,0.263,KMB,"Irving, Texas",Consumer Staples,Household Products
+Apache Corp.,0.263,APA,"Houston, Texas",Energy,Oil & Gas Exploration & Production
+Hewlett-Packard Co.,0.26,HPQ,"Palo Alto, California",Information Technology,"Technology Hardware, Storage & Peripherals"
+"PNC Financial Services Group, Inc.",0.259,PNC,"Pittsburgh, Pennsylvania",Financials,Diversified Banks
+Celgene Corp.,0.258,CELG,"Summit, NJ",Health Care,Biotechnology
+Capital One Financial Corp.,0.257,COF,"Tysons Corner, Virginia",Financials,Consumer Finance
+"Baxter International, Inc.",0.256,BAX,"Deerfield, Illinois",Health Care,Health Care Equipment
+"TJX Cos., Inc.",0.256,TJX,"Framingham, Massachusetts",Consumer Discretionary,Apparel Retail
+DIRECTV,0.256,DTV,"El Segundo, CA",Communication Services,Broadcasting
+Deere & Co.,0.251,DE,"Moline, Illinois",Industrials,Agricultural & Farm Machinery
+Danaher Corp.,0.25,DHR,"Washington, D.C.",Health Care,Life Sciences Tools & Services
+"Texas Instruments, Inc.",0.243,TXN,"Dallas, Texas",Information Technology,Semiconductors
+Halliburton Co.,0.243,HAL,"Houston, Texas",Energy,Oil & Gas Equipment & Services
+Walgreen Co.,0.242,WBA,"Deerfield, IL",Consumer Staples,Drug Retail
+"Praxair, Inc.",0.24,PX,"Dallas, TX",Financial Services,Asset Management
+"priceline.com, Inc.",0.239,BKNG,"Norwalk, Connecticut",Consumer Discretionary,"Hotels, Resorts & Cruise Lines"
+Exelon Corp.,0.236,EXC,"Chicago, Illinois",Utilities,Electric Utilities
+"Dominion Resources, Inc.",0.236,D,"Richmond, Virginia",Utilities,Multi-Utilities
+"EOG Resources, Inc.",0.235,EOG,"Houston, Texas",Energy,Oil & Gas Exploration & Production
+"Yum! Brands, Inc.",0.234,YUM,"Louisville, Kentucky",Consumer Discretionary,Restaurants
+"NextEra Energy, Inc.",0.231,NEE,"Juno Beach, Florida",Utilities,Multi-Utilities
+"Time Warner Cable, Inc.",0.228,TWC,"New York, NY",Communication Services,Cable & Satellite
+Phillips 66,0.226,PSX,"Houston, Texas",Energy,Oil & Gas Refining & Marketing
+Covidien PLC,0.221,COV,"Mansfield, MA",Health Care,Health Care Equipment
+"Automatic Data Processing, Inc.",0.22,ADP,"Roseland, New Jersey",Industrials,Human Resource & Employment Services
+American Tower Corp.,0.219,AMT,"Boston, Massachusetts",Real Estate,Telecom Tower REITs
+"Allergan, Inc.",0.219,AGN,"Dublin, Ireland",Health Care,Pharmaceuticals
+Newmont Mining Corp.,0.216,NEM,"Denver, Colorado",Materials,Gold
+The Bank of New York Mellon Corp.,0.207,BK,"New York City, New York",Financials,Asset Management & Custody Banks
+"The Travelers Cos., Inc.",0.204,TRV,"New York City, New York",Financials,Property & Casualty Insurance
+"Tyco International, Ltd.",0.201,TYC,"Schaffhausen, Switzerland",Industrials,Industrial Conglomerates
+"General Mills, Inc.",0.201,GIS,"Golden Valley, Minnesota",Consumer Staples,Packaged Foods & Meats
+"Illinois Tool Works, Inc.",0.2,ITW,"Glenview, Illinois",Industrials,Industrial Machinery & Supplies & Components
+"ACE, Ltd.",0.199,CB,"Zurich, Switzerland",Financials,Property & Casualty Insurance
+"Viacom, Inc. (Class B)",0.197,VIAB,"New York, NY",Communication Services,Movies & Entertainment
+"Prudential Financial, Inc.",0.196,PRU,"Newark, New Jersey",Financials,Life & Health Insurance
+"CenturyLink, Inc.",0.195,CTL,"Monroe, LA",Communication Services,Integrated Telecommunication Services
+Lockheed Martin Corp.,0.195,LMT,"Bethesda, Maryland",Industrials,Aerospace & Defense
+FedEx Corp.,0.192,FDX,"Memphis, Tennessee",Industrials,Air Freight & Logistics
+Precision Castparts Corp.,0.184,PCP,"Portland, OR",Industrials,Aerospace & Defense
+Morgan Stanley,0.18,MS,"New York City, New York",Financials,Investment Banking & Brokerage
+BB&T Corp.,0.18,BBT,"Boston, MA",Financial Services,Banks - Regional
+"BlackRock, Inc.",0.177,BLK,"New York City, New York",Financials,Asset Management & Custody Banks
+Devon Energy Corp.,0.177,DVN,"Oklahoma City, Oklahoma",Energy,Oil & Gas Exploration & Production
+"AFLAC, Inc.",0.174,AFL,"Columbus, Georgia",Financials,Life & Health Insurance
+"Alexion Pharmaceuticals, Inc.",0.171,ALXN,"Boston, MA",Health Care,Biotechnology
+General Dynamics Corp.,0.17,GD,"Reston, Virginia",Industrials,Aerospace & Defense
+"The Williams Cos., Inc.",0.17,WMB,"Tulsa, Oklahoma",Energy,Oil & Gas Storage & Transportation
+CBS Corp. (Class B),0.168,CBS,"New York, NY",Communication Services,Broadcasting
+CSX Corp.,0.168,CSX,"Jacksonville, Florida",Industrials,Rail Transportation
+"Thermo Fisher Scientific, Inc.",0.166,TMO,"Waltham, Massachusetts",Health Care,Life Sciences Tools & Services
+"American Electric Power Co., Inc.",0.165,AEP,"Columbus, Ohio",Utilities,Electric Utilities
+Cognizant Technology Solutions Corp. (Class A),0.163,CTSH,"Teaneck, New Jersey",Information Technology,IT Consulting & Other Services
+Marathon Oil Corp.,0.162,MRO,"Houston, TX",Energy,Oil & Gas Exploration & Production
+Norfolk Southern Corp.,0.159,NSC,"Atlanta, Georgia",Industrials,Rail Transportation
+Discover Financial Services,0.159,DFS,"Riverwoods, IL",Financials,Consumer Finance
+Chubb Corp.,0.158,CB,"Zurich, Switzerland",Financials,Property & Casualty Insurance
+McKesson Corp.,0.158,MCK,"Irving, Texas",Health Care,Health Care Distributors
+"Kinder Morgan, Inc.",0.157,KMI,"Houston, Texas",Energy,Oil & Gas Storage & Transportation
+State Street Corp.(c),0.157,STT,"Boston, Massachusetts",Financials,Asset Management & Custody Banks
+"Public Storage, Inc.",0.156,PSA,"Glendale, California",Real Estate,Self-Storage REITs
+"Baker Hughes, Inc.",0.154,BKR,"Houston, Texas",Energy,Oil & Gas Equipment & Services
+"Intuitive Surgical, Inc.",0.154,ISRG,"Sunnyvale, California",Health Care,Health Care Equipment
+"Corning, Inc.",0.153,GLW,"Corning, New York",Information Technology,Electronic Components
+"Salesforce.com, Inc.",0.152,CRM,"San Francisco, California",Information Technology,Application Software
+The Allstate Corp.,0.15,ALL,"Northbrook, Illinois",Financials,Property & Casualty Insurance
+Spectra Energy Corp.,0.149,SE,"Singapore, Singapore",Consumer Cyclical,Internet Retail
+"HCP, Inc.",0.148,PEAK,"Irvine, CA",Real Estate,Health Care REITs
+"WellPoint, Inc.",0.147,ANTM,"Indianapolis, IN",Health Care,Managed Health Care
+Raytheon Co.,0.146,RTN,"Waltham, MA",Industrials,Aerospace & Defense
+Crown Castle International Corp.,0.146,CCI,"Houston, Texas",Real Estate,Telecom Tower REITs
+"Johnson Controls, Inc.",0.145,JCI,"Cork, Ireland",Industrials,Building Products
+"Marsh & McLennan Cos., Inc.",0.143,MMC,"New York, NY",Financial Services,Insurance Brokers
+FirstEnergy Corp.,0.143,FE,"Akron, Ohio",Utilities,Electric Utilities
+Marathon Petroleum Corp.,0.143,MPC,"Findlay, Ohio",Energy,Oil & Gas Refining & Marketing
+"Ventas, Inc.",0.143,VTR,"Chicago, Illinois",Real Estate,Health Care REITs
+Sysco Corp.,0.142,SYY,"Houston, Texas",Consumer Staples,Food Distributors
+PG&E Corp.,0.141,PCG,"Oakland, California",Utilities,Multi-Utilities
+H.J. Heinz Co.,0.139,HNZ,"Pittsburgh, PA",Consumer Staples,Packaged Foods & Meats
+Archer-Daniels-Midland Co.,0.139,ADM,"Chicago, Illinois",Consumer Staples,Agricultural Products & Services
+Broadcom Corp. (Class A),0.138,BRCM,"Irvine, CA",Information Technology,Semiconductors
+"CME Group, Inc.",0.136,CME,"Chicago, Illinois",Financials,Financial Exchanges & Data
+"Consolidated Edison, Inc.",0.136,ED,"New York City, New York",Utilities,Multi-Utilities
+"PPG Industries, Inc.",0.136,PPG,"Pittsburgh, Pennsylvania",Materials,Specialty Chemicals
+"Franklin Resources, Inc.",0.136,BEN,"San Mateo, California",Financials,Asset Management & Custody Banks
+"Air Products & Chemicals, Inc.",0.136,APD,"Upper Macungie Township, Pennsylvania",Materials,Industrial Gases
+LyondellBasell Industries NV (Class A),0.136,LYB,"Rotterdam, Netherlands",Materials,Specialty Chemicals
+Valero Energy Corp.,0.135,VLO,"San Antonio, Texas",Energy,Oil & Gas Refining & Marketing
+Equity Residential,0.134,EQR,"Chicago, Illinois",Real Estate,Multi-Family Residential REITs
+"Ecolab, Inc.",0.133,ECL,"Saint Paul, Minnesota",Materials,Specialty Chemicals
+Aon PLC,0.131,AON,"London, United Kingdom",Financials,Insurance Brokers
+PPL Corp.,0.131,PPL,"Allentown, Pennsylvania",Utilities,Electric Utilities
+"Whole Foods Market, Inc.",0.13,WFM,"Austin, TX",Consumer Staples,Food Retail
+"Yahoo!, Inc.",0.13,YHOO,"Sunnyvale, CA",Communication Services,Interactive Media & Services
+"Boston Properties, Inc.",0.129,BXP,"Boston, Massachusetts",Real Estate,Office REITs
+Sprint Nextel Corp.,0.129,S,"Mountain View, CA",Technology,Software - Infrastructure
+Northrop Grumman Corp.,0.128,NOC,"West Falls Church, Virginia[3]",Industrials,Aerospace & Defense
+"Noble Energy, Inc.",0.128,NBL,"Houston, TX",Energy,Oil & Gas Exploration & Production
+"Cummins, Inc.",0.127,CMI,"Columbus, Indiana",Industrials,Construction Machinery & Heavy Transportation Equipment
+"Public Service Enterprise Group, Inc.",0.126,PEG,"Newark, New Jersey",Utilities,Electric Utilities
+"Intuit, Inc.",0.126,INTU,"Mountain View, California",Information Technology,Application Software
+Carnival Corp.,0.126,CCL,"Miami, Florida",Consumer Discretionary,"Hotels, Resorts & Cruise Lines"
+"ProLogis, Inc.",0.125,PLD,"San Francisco, California",Real Estate,Industrial REITs
+Stryker Corp.,0.125,SYK,"Kalamazoo, Michigan",Health Care,Health Care Equipment
+Hess Corp.,0.125,HES,"New York, NY",Energy,Oil & Gas Exploration & Production
+"T. Rowe Price Group, Inc.",0.124,TROW,"Baltimore, Maryland",Financials,Asset Management & Custody Banks
+Eaton Corp.,0.124,ETN,"Dublin, Ireland",Industrials,Electrical Components & Equipment
+The Mosaic Co.,0.124,MOS,"Tampa, Florida",Materials,Fertilizers & Agricultural Chemicals
+"Adobe Systems, Inc.",0.124,ADBE,"San Jose, California",Information Technology,Application Software
+"Coach, Inc.",0.124,TPR,"New York City, New York",Consumer Discretionary,"Apparel, Accessories & Luxury Goods"
+International Paper Co.,0.123,IP,"Memphis, Tennessee",Materials,Paper & Plastic Packaging Products & Materials
+"Becton, Dickinson & Co.",0.122,BDX,"Franklin Lakes, New Jersey",Health Care,Health Care Equipment
+"Macy’s, Inc.",0.119,M,"New York, NY",Consumer Cyclical,Department Stores
+"The McGraw-Hill Cos., Inc.",0.119,SPGI,"New York City, New York",Financials,Financial Exchanges & Data
+"SunTrust Banks, Inc.",0.118,STI,"Dallas, TX",Industrials,Electrical Equipment & Parts
+"Lorillard, Inc.",0.118,LO,"Greensboro, NC",Consumer Staples,Tobacco
+Mead Johnson Nutrition Co.,0.116,MJN,"Glenview, IL",Consumer Staples,Health Care Care Products
+Edison International,0.116,EIX,"Rosemead, California",Utilities,Electric Utilities
+"The Estee Lauder Cos., Inc. (Class A)",0.115,EL,"New York City, New York",Consumer Staples,Personal Care Products
+"Discovery Communications, Inc. (Class A)",0.114,DISCA,"Silver Spring, MD",Communication Services,Broadcasting
+"Health Care REIT, Inc.",0.114,HCN,"Toledo, OH",Real Estate,Health Care REITs
+"Motorola Solutions, Inc.",0.114,MSI,"Chicago, Illinois",Information Technology,Communications Equipment
+"TE Connectivity, Ltd.",0.113,TEL,"Galway, Ireland",Information Technology,Electronic Manufacturing Services
+Sempra Energy,0.113,SRE,"San Diego, California",Utilities,Multi-Utilities
+"Dell, Inc.",0.113,DELL,"Round Rock, Texas",Information Technology,"Technology Hardware, Storage & Peripherals"
+"Bed Bath & Beyond, Inc.",0.112,BBBY,"Union, NJ",Consumer Discretionary,Specialty Stores
+"Ross Stores, Inc.",0.112,ROST,"Dublin, California",Consumer Discretionary,Apparel Retail
+"Citrix Systems, Inc.",0.111,CTXS,"Fort Lauderdale, FL",Information Technology,Application Software
+"Reynolds American, Inc.",0.11,RAI,"Winston-Salem, NC",Consumer Staples,Tobacco
+Fifth Third Bancorp,0.11,FITB,"Cincinnati, Ohio",Financials,Regional Banks
+"PACCAR, Inc.",0.109,PCAR,"Bellevue, Washington",Industrials,Construction Machinery & Heavy Transportation Equipment
+Weyerhaeuser Co.,0.109,WY,"Seattle, Washington",Real Estate,Timber REITs
+The Charles Schwab Corp.,0.109,SCHW,"Westlake, Texas",Financials,Investment Banking & Brokerage
+V.F. Corp.,0.109,VFC,"Denver, CO",Consumer Cyclical,Apparel Manufacturing
+"Waste Management, Inc.",0.109,WM,"Houston, Texas",Industrials,Environmental & Facilities Services
+"CF Industries Holdings, Inc.",0.108,CF,"Deerfield, Illinois",Materials,Fertilizers & Agricultural Chemicals
+"Omnicom Group, Inc.",0.108,OMC,"New York City, New York",Communication Services,Advertising
+"Applied Materials, Inc.",0.107,AMAT,"Santa Clara, California",Information Technology,Semiconductor Materials & Equipment
+Cameron International Corp.,0.107,CAM,"Houston, TX",Energy,Oil & Gas Equipment & Services
+"Autozone, Inc.",0.107,AZO,"Memphis, Tennessee",Consumer Discretionary,Automotive Retail
+Vornado Realty Trust,0.107,VNO,"New York, NY",Real Estate,REIT - Office
+CIGNA Corp.,0.106,CI,"Bloomfield, Connecticut",Health Care,Health Care Services
+"Xcel Energy, Inc.",0.105,XEL,"Minneapolis, Minnesota",Utilities,Multi-Utilities
+"Agilent Technologies, Inc.",0.104,A,"Santa Clara, California",Health Care,Life Sciences Tools & Services
+"Cardinal Health, Inc.",0.103,CAH,"Dublin, Ohio",Health Care,Health Care Distributors
+"Aetna, Inc.",0.103,AET,"Hartford, CT",Health Care,Managed Health Care
+"AvalonBay Communities, Inc.",0.102,AVB,"Arlington, Virginia",Real Estate,Multi-Family Residential REITs
+Ingersoll-Rand PLC,0.102,IR,"Davidson, North Carolina",Industrials,Industrial Machinery & Supplies & Components
+"St. Jude Medical, Inc.",0.102,STJ,"St. Paul, MN",Health Care,Health Care Equipment
+The Kroger Co.,0.101,KR,"Cincinnati, Ohio",Consumer Staples,Food Retail
+Loews Corp.,0.1,L,"New York City, New York",Financials,Multi-line Insurance
+Symantec Corp.,0.1,SYMC,"Tempe, AZ",Information Technology,Systems Software
+Pioneer Natural Resources Co.,0.1,PXD,"Irving, TX",Energy,Oil & Gas Exploration & Production
+"Stanley Black & Decker, Inc.",0.099,SWK,"New Britain, Connecticut",Industrials,Industrial Machinery & Supplies & Components
+Kellogg Co.,0.099,K,"Chicago, IL",Consumer Defensive,Packaged Foods
+Ensco PLC (Class A),0.098,ESV,"London, UK",Energy,Oil & Gas Drilling
+Sherwin-Williams Co.,0.098,SHW,"Cleveland, Ohio",Materials,Specialty Chemicals
+"W.W. Grainger, Inc.",0.098,GWW,"Lake Forest, Illinois",Industrials,Industrial Machinery & Supplies & Components
+Teradata Corp.,0.098,TDC,"San Diego, CA",Technology,Software - Infrastructure
+Parker-Hannifin Corp.,0.097,PH,"Cleveland, Ohio",Industrials,Industrial Machinery & Supplies & Components
+Edwards Lifesciences Corp.,0.096,EW,"Irvine, California",Health Care,Health Care Equipment
+Entergy Corp.,0.094,ETR,"New Orleans, Louisiana",Utilities,Electric Utilities
+Nucor Corp.,0.094,NUE,"Charlotte, North Carolina",Materials,Steel
+"Mattel, Inc.",0.094,MAT,"El Segundo, CA",Consumer Cyclical,Leisure
+Southwestern Energy Co.,0.093,SWN,"Spring, TX",Energy,Oil & Gas Exploration & Production
+Cooper Industries PLC,0.093,CBE,"Dublin, Ireland",Industrials,Electrical Components & Equipment
+Northeast Utilities,0.093,NU,"São Paulo, SP",Financial Services,Banks - Regional
+"Ameriprise Financial, Inc.",0.093,AMP,"Minneapolis, Minnesota",Financials,Asset Management & Custody Banks
+"NetApp, Inc.",0.092,NTAP,"San Jose, California",Information Technology,"Technology Hardware, Storage & Peripherals"
+"Zimmer Holdings, Inc.",0.092,ZBH,"Warsaw, Indiana",Health Care,Health Care Equipment
+"Limited Brands, Inc.",0.091,LB,"Houston, TX",Energy,Oil & Gas Equipment & Services
+"Analog Devices, Inc.",0.091,ADI,"Wilmington, Massachusetts",Information Technology,Semiconductors
+The Progressive Corp.,0.09,PGR,"Mayfield Village, Ohio",Financials,Property & Casualty Insurance
+Fastenal Co.,0.09,FAST,"Winona, Minnesota",Industrials,Trading Companies & Distributors
+"Host Hotels & Resorts, Inc.",0.09,HST,"Bethesda, Maryland",Real Estate,Hotel & Resort REITs
+M & T Bank Corp.,0.089,MTB,"Buffalo, New York",Financials,Regional Banks
+"Humana, Inc.",0.088,HUM,"Louisville, Kentucky",Health Care,Managed Health Care
+"Starwood Hotels & Resorts Worldwide, Inc.",0.087,HOT,"Stamford, CT",Consumer Discretionary,"Hotels, Resorts & Cruise Lines"
+"ConAgra Foods, Inc.",0.087,CAG,"Chicago, Illinois",Consumer Staples,Packaged Foods & Meats
+Range Resources Corp.,0.087,RRC,"Fort Worth, TX",Energy,Oil & Gas E&P
+Cerner Corp.,0.087,CERN,"North Kansas City, MO",Health Care,Health Care Technology
+"Dollar Tree, Inc.",0.086,DLTR,"Chesapeake, Virginia",Consumer Staples,Consumer Staples Merchandise Retail
+Kohl’s Corp.,0.086,KSS,"Menomonee Falls, WI",Consumer Cyclical,Department Stores
+"Invesco, Ltd.",0.086,IVZ,"Atlanta, Georgia",Financials,Asset Management & Custody Banks
+The Western Union Co.,0.086,WU,"Denver, CO",Financial Services,Credit Services
+"Red Hat, Inc.",0.085,RHT,"Raleigh, NC",Information Technology,Systems Software
+"FMC Technologies, Inc.",0.085,FMC,"Philadelphia, PA",Basic Materials,Agricultural Inputs
+"Watson Pharmaceuticals, Inc.",0.084,WPI,"Parsippany, NJ",Health Care,Pharmaceuticals
+Seagate Technology PLC,0.084,STX,"Dublin, Ireland",Information Technology,"Technology Hardware, Storage & Peripherals"
+Altera Corp.,0.084,ALTR,"San Jose, CA",Information Technology,Semiconductors
+Dover Corp.,0.084,DOV,"Downers Grove, Illinois",Industrials,Industrial Machinery & Supplies & Components
+"Roper Industries, Inc.",0.083,ROP,"Sarasota, Florida",Information Technology,Electronic Equipment & Instruments
+"Paychex, Inc.",0.083,PAYX,"Penfield, New York",Industrials,Human Resource & Employment Services
+"The Gap, Inc.",0.083,GAP,"San Francisco, CA",Consumer Cyclical,Apparel Retail
+The Hershey Co.,0.083,HSY,"Hershey, Pennsylvania",Consumer Staples,Packaged Foods & Meats
+SanDisk Corp.,0.081,SNDK,"Milpitas, California",Information Technology,"Technology Hardware, Storage & Peripherals"
+DTE Energy Co.,0.08,DTE,"Detroit, Michigan",Utilities,Multi-Utilities
+Perrigo Co.,0.079,PRGO,"Dublin, Ireland",Healthcare,Drug Manufacturers - Specialty & Generic
+Murphy Oil Corp.,0.079,MUR,"Houston, TX",Energy,Oil & Gas E&P
+Northern Trust Corp.,0.079,NTRS,"Chicago, Illinois",Financials,Asset Management & Custody Banks
+"Quest Diagnostics, Inc.",0.078,DGX,"Secaucus, New Jersey",Health Care,Health Care Services
+Regions Financial Corp.,0.078,RF,"Birmingham, Alabama",Financials,Regional Banks
+"Fiserv, Inc.",0.078,FI,"Milwaukee, WI",Financials,Transaction & Payment Processing Services
+"Chipotle Mexican Grill, Inc.",0.077,CMG,"Newport Beach, California",Consumer Discretionary,Restaurants
+Brown-Forman Corp. (Class B),0.077,BF.B,"Louisville, Kentucky",Consumer Staples,Distillers & Vintners
+"Marriott International, Inc. (Class A)",0.076,MAR,"Bethesda, Maryland",Consumer Discretionary,"Hotels, Resorts & Cruise Lines"
+Chesapeake Energy Corp.,0.076,CHKAQ,"Oklahoma City, OK",Energy,Oil & Gas Exploration & Production
+"O’Reilly Automotive, Inc.",0.076,ORLY,"Springfield, Missouri",Consumer Discretionary,Automotive Retail
+"Oneok, Inc.",0.076,OKE,"Tulsa, Oklahoma",Energy,Oil & Gas Storage & Transportation
+"Mylan, Inc.",0.076,MYL,"Canonsburg, PA",Health Care,Pharmaceuticals
+Xerox Corp.,0.076,XRX,"Norwalk, CT",Industrials,Business Equipment & Supplies
+"Rockwell Automation, Inc.",0.076,ROK,"Milwaukee, Wisconsin",Industrials,Electrical Components & Equipment
+"Harley-Davidson, Inc.",0.075,HOG,"Milwaukee, WI",Consumer Cyclical,Recreational Vehicles
+The JM Smucker Co.,0.075,SJM,"Orrville, Ohio",Consumer Staples,Packaged Foods & Meats
+AmerisourceBergen Corp.,0.075,ABC,"Conshohocken, PA",Health Care,Health Care Distributors
+"IntercontinentalExchange, Inc.",0.075,ICE,"Atlanta, Georgia",Financials,Financial Exchanges & Data
+Amphenol Corp. (Class A),0.073,APH,"Wallingford, Connecticut",Information Technology,Electronic Components
+Cabot Oil & Gas Corp.,0.073,COG,"Houston, TX",Energy,Oil & Gas Exploration & Production
+Fluor Corp.,0.073,FLR,"Irving, TX",Industrials,Engineering & Construction
+Genuine Parts Co.,0.073,GPC,"Atlanta, Georgia",Consumer Discretionary,Distributors
+"C.H. Robinson Worldwide, Inc.",0.073,CHRW,"Eden Prairie, Minnesota",Industrials,Air Freight & Logistics
+"Alcoa, Inc.",0.072,AA,"Pittsburgh, PA",Basic Materials,Aluminum
+"Dr. Pepper Snapple Group, Inc.",0.072,DPS,"Plano, TX",Consumer Staples,Soft Drinks
+Clorox Co.,0.072,CLX,"Oakland, California",Consumer Staples,Household Products
+Ralph Lauren Corp.,0.072,RL,"New York City, New York",Consumer Discretionary,"Apparel, Accessories & Luxury Goods"
+"Beam, Inc.",0.071,BEAM,"Cambridge, MA",Healthcare,Biotechnology
+"Wynn Resorts, Ltd.",0.071,WYNN,"Paradise, Nevada",Consumer Discretionary,Casinos & Gaming
+Noble Corp.,0.07,NE,"Houston, TX",Energy,Oil & Gas Drilling
+"CA, Inc.",0.07,CA,"Islandia, NY",Information Technology,Systems Software
+"CenterPoint Energy, Inc.",0.07,CNP,"Houston, Texas",Utilities,Multi-Utilities
+"Juniper Networks, Inc.",0.069,JNPR,"Sunnyvale, CA",Information Technology,Communications Equipment
+Laboratory Corp. of America Holdings,0.069,LH,"Burlington, North Carolina",Health Care,Health Care Services
+Western Digital Corp.,0.069,WDC,"San Jose, California",Information Technology,"Technology Hardware, Storage & Peripherals"
+"DaVita, Inc.",0.069,DVA,"Denver, Colorado",Health Care,Health Care Services
+EQT Corp.,0.069,EQT,"Pittsburgh, Pennsylvania",Energy,Oil & Gas Exploration & Production
+"Nordstrom, Inc.",0.068,JWN,"Seattle, WA",Consumer Discretionary,Department Stores
+"Xilinx, Inc.",0.067,XLNX,"San Jose, CA",Information Technology,Semiconductors
+"Coca-Cola Enterprises, Inc.",0.067,CCE,"Atlanta, GA",Consumer Staples,Soft Drinks
+Life Technologies Corp.,0.067,LIFE,"San Francisco, CA",Financial Services,Insurance - Life
+Sigma-Aldrich Corp.,0.067,SIAL,"St. Louis, MO",Health Care,Life Sciences Tools & Services
+Eastman Chemical Co.,0.067,EMN,"Kingsport, TN",Basic Materials,Specialty Chemicals
+Wisconsin Energy Corp.,0.067,WEC,"Milwaukee, Wisconsin",Utilities,Electric Utilities
+Moody’s Corp.,0.066,MCO,"New York City, New York",Financials,Financial Exchanges & Data
+"Hartford Financial Services Group, Inc.",0.066,HIG,"Hartford, Connecticut",Financials,Property & Casualty Insurance
+"Forest Laboratories, Inc.",0.065,FRX,"Parsippany, NJ",Health Care,Pharmaceuticals
+Monster Beverage Corp.,0.065,MNST,"Corona, California",Consumer Staples,Soft Drinks & Non-alcoholic Beverages
+NVIDIA Corp.,0.064,NVDA,"Santa Clara, California",Information Technology,Semiconductors
+Kimco Realty Corp.,0.064,KIM,"Jericho, New York",Real Estate,Retail REITs
+"Republic Services, Inc.",0.064,RSG,"Phoenix, Arizona",Industrials,Environmental & Facilities Services
+"F5 Networks, Inc.",0.064,FFIV,"Seattle, Washington",Information Technology,Communications Equipment
+"C.R. Bard, Inc.",0.063,BCR,"Murray Hill, NJ",Health Care,Health Care Equipment
+KeyCorp,0.063,KEY,"Cleveland, Ohio",Financials,Regional Banks
+Boston Scientific Corp.,0.063,BSX,"Marlborough, Massachusetts",Health Care,Health Care Equipment
+"McCormick & Co., Inc.",0.063,MKC,"Hunt Valley, Maryland",Consumer Staples,Packaged Foods & Meats
+Ameren Corp.,0.062,AEE,"St. Louis, Missouri",Utilities,Multi-Utilities
+"Staples, Inc.",0.061,SPLS,"Framingham, MA",Consumer Discretionary,Specialty Stores
+"BorgWarner, Inc.",0.061,BWA,"Auburn Hills, MI",Consumer Cyclical,Auto Parts
+KLA-Tencor Corp.,0.061,KLAC,"Milpitas, California",Information Technology,Semiconductor Materials & Equipment
+"Fidelity National Information Services, Inc.",0.061,FIS,"Jacksonville, Florida",Financials,Transaction & Payment Processing Services
+"Rockwell Collins, Inc.",0.06,COL,"Cedar Rapids, IA",Industrials,Aerospace & Defense
+"VeriSign, Inc.",0.059,VRSN,"Reston, Virginia",Information Technology,Internet Services & Infrastructure
+"Stericycle, Inc.",0.059,SRCL,"Bannockburn, IL",Industrials,Environmental & Facilities Services
+SLM Corp.,0.059,SLM,"Newark, DE",Financial Services,Credit Services
+Wyndham Worldwide Corp.,0.059,WYN,"Parsippany, NJ",Consumer Discretionary,"Hotels, Resorts & Cruise Lines"
+"Expeditors International of Washington, Inc.",0.059,EXPD,"Seattle, Washington",Industrials,Air Freight & Logistics
+FMC Corp.,0.058,FMC,"Philadelphia, PA",Basic Materials,Agricultural Inputs
+"Autodesk, Inc.",0.058,ADSK,"San Francisco, California",Information Technology,Application Software
+"Principal Financial Group, Inc.",0.058,PFG,"Des Moines, Iowa",Financials,Life & Health Insurance
+XL Group PLC,0.058,XL,"Stamford, CT",Financials,Property & Casualty Insurance
+Tiffany & Co.,0.057,TIF,"New York, NY",Consumer Discretionary,"Apparel, Accessories & Luxury Goods"
+Waters Corp.,0.057,WAT,"Milford, Massachusetts",Health Care,Life Sciences Tools & Services
+"Textron, Inc.",0.056,TXT,"Providence, Rhode Island",Industrials,Aerospace & Defense
+Linear Technology Corp.,0.056,LLTC,"Milpitas, CA",Information Technology,Semiconductors
+Pall Corp.,0.056,PLL,"Port Washington, NY",Industrials,Industrial Machinery
+"NiSource, Inc.",0.056,NI,"Merrillville, Indiana",Utilities,Multi-Utilities
+"Darden Restaurants, Inc.",0.055,DRI,"Orlando, Florida",Consumer Discretionary,Restaurants
+Molson Coors Brewing Co. (Class B),0.054,TAP,"Chicago, Illinois",Consumer Staples,Brewers
+The AES Corp.,0.054,AES,"Arlington, Virginia",Utilities,Independent Power Producers & Energy Traders
+"Plum Creek Timber Co., Inc.",0.054,PCL,"Seattle, WA",Real Estate,Specialized REITs
+"L-3 Communications Holdings, Inc.",0.054,LLL,"New York, NY",Industrials,Aerospace & Defense
+"Avon Products, Inc.",0.053,AVP,"London, UK",Consumer Staples,Personal Products
+"CONSOL Energy, Inc.",0.053,CEIX,"Canonsburg, PA",Energy,Coal & Consumable Fuels
+Lincoln National Corp.,0.053,LNC,"Radnor, PA",Financial Services,Insurance - Life
+"Akamai Technologies, Inc.",0.053,AKAM,"Cambridge, Massachusetts",Information Technology,Internet Services & Infrastructure
+"Varian Medical Systems, Inc.",0.052,VAR,"Palo Alto, CA",Health Care,Health Care Equipment
+Southwest Airlines Co.,0.052,LUV,"Dallas, Texas",Industrials,Passenger Airlines
+Ball Corp.,0.051,BALL,"Broomfield, Colorado",Materials,"Metal, Glass & Plastic Containers"
+"CarMax, Inc.",0.05,KMX,"Richmond, VA",Consumer Cyclical,Auto & Truck Dealerships
+Flowserve Corp.,0.05,FLS,"Irving, TX",Industrials,Specialty Industrial Machinery
+"Family Dollar Stores, Inc.",0.05,FDO,"Matthews, NC",Consumer Discretionary,General Merchandise Stores
+Whirlpool Corp.,0.05,WHR,"Benton Harbor, MI",Consumer Cyclical,"Furnishings, Fixtures & Appliances"
+SCANA Corp.,0.049,SCG,"Cayce, SC",Utilities,Multi-Utilities
+"Microchip Technology, Inc.",0.049,MCHP,"Chandler, Arizona",Information Technology,Semiconductors
+CMS Energy Corp.,0.048,CMS,"Jackson, Michigan",Utilities,Multi-Utilities
+"Denbury Resources, Inc.",0.048,DNR,"Plano, TX",Energy,Oil & Gas Exploration & Production
+CareFusion Corp.,0.048,CFN,"San Diego, CA",Health Care,Health Care Supplies
+NYSE Euronext,0.048,NYX,"New York, NY",Financials,Financial Exchanges & Data
+Campbell Soup Co.,0.048,CPB,"Camden, New Jersey",Consumer Staples,Packaged Foods & Meats
+Vulcan Materials Co.,0.048,VMC,"Birmingham, Alabama",Materials,Construction Materials
+"BMC Software, Inc.",0.047,BMC,"Houston, TX",Information Technology,Systems Software
+"Micron Technology, Inc.",0.047,MU,"Boise, Idaho",Information Technology,Semiconductors
+"Comerica, Inc.",0.047,CMA,"Dallas, TX",Financial Services,Banks - Regional
+Peabody Energy Corp.,0.047,BTU,"Saint Louis, MO",Energy,Thermal Coal
+Windstream Corp.,0.046,WIN,"Little Rock, AR",Communication Services,Alternative Carriers
+"Joy Global, Inc.",0.046,JOY,"Milwaukee, WI",Industrials,Construction & Farm Machinery
+"Huntington Bancshares, Inc.",0.045,HBAN,"Columbus, Ohio; Detroit, Michigan",Financials,Regional Banks
+Tesoro Corp.,0.045,TSO,"San Antonio, TX",Energy,Oil & Gas Refining & Marketing
+Harris Corp.,0.045,HRS,"Melbourne, FL",Industrials,Aerospace & Defense
+Lam Research Corp.,0.044,LRCX,"Fremont, California",Information Technology,Semiconductor Materials & Equipment
+Lennar Corp. (Class A),0.044,LEN,"Miami, Florida",Consumer Discretionary,Homebuilding
+"D.R. Horton, Inc.",0.044,DHI,"Arlington, Texas",Consumer Discretionary,Homebuilding
+"Airgas, Inc.",0.044,ARG,"Radnor, PA",Materials,Industrial Gases
+Pinnacle West Capital Corp.,0.044,PNW,"Phoenix, Arizona",Utilities,Multi-Utilities
+"CBRE Group, Inc. (Class A)",0.043,CBRE,"Dallas, Texas",Real Estate,Real Estate Services
+Cincinnati Financial Corp.,0.043,CINF,"Fairfield, Ohio",Financials,Property & Casualty Insurance
+"Equifax, Inc.",0.043,EFX,"Atlanta, Georgia",Industrials,Research & Consulting Services
+"Cliffs Natural Resources, Inc.",0.043,CLF,"Cleveland, OH",Basic Materials,Steel
+"Coventry Health Care, Inc.",0.043,CVH,"Bethesda, MD",Health Care,Managed Health Care
+"Expedia, Inc.",0.043,EXPE,"Seattle, Washington",Consumer Discretionary,"Hotels, Resorts & Cruise Lines"
+"QEP Resources, Inc.",0.043,QEP,"Denver, CO",Energy,Oil & Gas Exploration & Production
+Unum Group,0.042,UNM,"Chattanooga, TN",Financial Services,Insurance - Life
+"Newell Rubbermaid, Inc.",0.042,NWL,"Atlanta, GA",Consumer Defensive,Household & Personal Products
+"Hospira, Inc.",0.041,HSP,"Lake Forest, IL",Health Care,Pharmaceuticals
+MeadWestvaco Corp.,0.041,MWV,"Richmond, VA",Materials,Paper Packaging
+Masco Corp.,0.041,MAS,"Livonia, Michigan",Industrials,Building Products
+Scripps Networks Interactive (Class A),0.041,SNI,"Knoxville, TN",Communication Services,Broadcasting
+"DENTSPLY International, Inc.",0.041,XRAY,"Charlotte, NC",Healthcare,Medical Instruments & Supplies
+"Jacobs Engineering Group, Inc.",0.041,J,"Dallas, Texas",Industrials,Construction & Engineering
+"Iron Mountain, Inc.",0.04,IRM,"Portsmouth, New Hampshire",Real Estate,Other Specialized REITs
+"Quanta Services, Inc.",0.04,PWR,"Houston, Texas",Industrials,Construction & Engineering
+"Pulte Group, Inc.",0.04,PHM,"Atlanta, Georgia",Consumer Discretionary,Homebuilding
+Torchmark Corp.,0.039,TMK,"McKinney, TX",Financials,Life & Health Insurance
+"Helmerich & Payne, Inc.",0.039,HP,"Tulsa, OK",Energy,Oil & Gas Drilling
+"Sunoco, Inc.",0.038,SUN,"Dallas, TX",Energy,Oil & Gas Refining & Marketing
+"The Interpublic Group of Cos., Inc.",0.038,IPG,"New York, NY",Communication Services,Advertising
+Computer Sciences Corp.,0.038,CSC,"Falls Church, VA",Information Technology,IT Consulting & Other Services
+"Constellation Brands, Inc. (Class A)",0.038,STZ,"Rochester, New York",Consumer Staples,Distillers & Vintners
+"NRG Energy, Inc.",0.038,NRG,"Houston, Texas",Utilities,Independent Power Producers & Energy Traders
+Frontier Communications Corp.,0.037,FYBR,"Dallas, TX",Communication Services,Telecom Services
+"International Flavors & Fragrances, Inc.",0.037,IFF,"New York City, New York",Materials,Specialty Chemicals
+"AGL Resources, Inc.",0.037,GAS,"Naperville, IL",Utilities,Gas Utilities
+"Best Buy Co., Inc.",0.037,BBY,"Richfield, Minnesota",Consumer Discretionary,Computer & Electronics Retail
+"H&R Block, Inc.",0.037,HRB,"Kansas City, MO",Consumer Cyclical,Personal Services
+"Fossil, Inc.",0.036,FOSL,"Richardson, TX",Consumer Cyclical,Footwear & Accessories
+"Tyson Foods, Inc. (Class A)",0.036,TSN,"Springdale, Arkansas",Consumer Staples,Packaged Foods & Meats
+"Xylem, Inc.",0.035,XYL,"White Plains, New York",Industrials,Industrial Machinery & Supplies & Components
+Cintas Corp.,0.035,CTAS,"Mason, Ohio",Industrials,Diversified Support Services
+"Diamond Offshore Drilling, Inc.",0.035,DO,"Houston, TX",Energy,Oil & Gas Drilling
+"Pentair, Inc.",0.035,PNR,"Worsley, United Kingdom",Industrials,Industrial Machinery & Supplies & Components
+Leucadia National Corp.,0.034,LUK,"New York, NY",Financials,Multi-Sector Holdings
+"Hasbro, Inc.",0.034,HAS,"Pawtucket, Rhode Island",Consumer Discretionary,Leisure Products
+"People’s United Financial, Inc.",0.034,PBCT,"Bridgeport, CT",Financials,Regional Banks
+Newfield Exploration Co.,0.033,NFX,"The Woodlands, TX",Energy,Oil & Gas Exploration & Production
+"Pepco Holdings, Inc.",0.033,POM,"Guangzhou, China",Healthcare,Pharmaceutical Retailers
+"Gannett Co., Inc.",0.032,GCI,"McLean, VA",Communication Services,Publishing
+Rowan Companies PLC (Class A),0.032,RDC,"Houston, TX",Energy,Oil & Gas Drilling
+"Snap-on, Inc.",0.032,SNA,"Kenosha, Wisconsin",Industrials,Industrial Machinery & Supplies & Components
+"Urban Outfitters, Inc.",0.032,URBN,"Philadelphia, PA",Consumer Cyclical,Apparel Retail
+"Electronic Arts, Inc.",0.031,EA,"Redwood City, California",Communication Services,Interactive Home Entertainment
+Hormel Foods Corp.,0.031,HRL,"Austin, Minnesota",Consumer Staples,Packaged Foods & Meats
+"Integrys Energy Group, Inc.",0.031,TEG,"Chicago, IL",Utilities,Multi-Utilities
+"Nabors Industries, Ltd.",0.031,NBR,"Hamilton, Bermuda",Energy,Oil & Gas Drilling
+LSI Corp.,0.03,LSI,"San Jose, CA",Information Technology,Semiconductors
+"Safeway, Inc.",0.03,SWY,"Pleasanton, CA",Consumer Staples,Food Retail
+"Hudson City Bancorp, Inc.",0.029,HCBK,"Lodi, NJ",Financials,Thrifts & Mortgage Finance
+Apartment Investment & Management Co. (Class A),0.029,AIV,"Denver, CO",Real Estate,REIT - Residential
+"Total System Services, Inc.",0.029,TSS,"Columbus, GA",Information Technology,Data Processing & Outsourced Services
+"Robert Half International, Inc.",0.029,RHI,"Menlo Park, CA",Industrials,Staffing & Employment Services
+"TECO Energy, Inc.",0.029,TE,"Austin, TX",Industrials,Electrical Equipment & Parts
+Zions Bancorporation,0.029,ZION,"Salt Lake City, UT",Financial Services,Banks - Regional
+"MetroPCS Communications, Inc.",0.029,PCS,"Richardson, TX",Communication Services,Wireless Telecommunication Services
+"TripAdvisor, Inc.",0.028,TRIP,"Needham, MA",Consumer Cyclical,Travel Services
+Dun & Bradstreet Corp.,0.027,DNB,"Short Hills, NJ",Industrials,Research & Consulting Services
+"Molex, Inc.",0.027,MOLX,"Lisle, IL",Information Technology,Electronic Components
+"Leggett & Platt, Inc.",0.027,LEG,"Carthage, MO",Consumer Cyclical,"Furnishings, Fixtures & Appliances"
+"Jabil Circuit, Inc.",0.027,JBL,"St. Petersburg, Florida",Information Technology,Electronic Manufacturing Services
+International Game Technology,0.027,IGT,"London, UK",Consumer Discretionary,Casinos & Gaming
+"J.C. Penney Co., Inc.",0.027,JCP,"Plano, TX",Consumer Discretionary,Department Stores
+Cablevision Systems Corp. (Class A),0.026,CVC,"Bethpage, NY",Communication Services,Cable & Satellite
+"Allegheny Technologies, Inc.",0.026,AYE,"Greensburg, PA",Utilities,Electric Utilities
+Avery Dennison Corp.,0.026,AVY,"Mentor, Ohio",Materials,Paper & Plastic Packaging Products & Materials
+"SAIC, Inc.",0.026,SAIC,"Reston, VA",Technology,Information Technology Services
+"PerkinElmer, Inc.",0.025,RVTY,"Waltham, Massachusetts",Health Care,Health Care Equipment
+"WPX Energy, Inc.",0.025,WPX,"Tulsa, OK",Energy,Oil & Gas Exploration & Production
+"Bemis Co., Inc.",0.025,BMS,"Neenah, WI",Materials,Paper Packaging
+"Harman International Industries, Inc.",0.025,HAR,"Stamford, CT",Consumer Discretionary,Audio Electronics
+"FLIR Systems, Inc.",0.024,FLIR,"Wilsonville, OR",Information Technology,Electronic Equipment & Instruments
+"Legg Mason, Inc.",0.023,LM,"Baltimore, MD",Financials,Asset Management & Custody Banks
+"Owens-Illinois, Inc.",0.023,OI,"Perrysburg, OH",Consumer Cyclical,Packaging & Containers
+"Assurant, Inc.",0.023,AIZ,"Atlanta, Georgia",Financials,Multi-line Insurance
+"Netflix, Inc.",0.023,NFLX,"Los Gatos, California",Communication Services,Movies & Entertainment
+"Patterson Cos., Inc.",0.023,PDCO,"St. Paul, MN",Health Care,Health Care Care Products
+Dean Foods Co.,0.023,DF,"Dallas, TX",Consumer Staples,Packaged Foods & Meats
+Sealed Air Corp.,0.023,SEE,"Charlotte, NC",Consumer Cyclical,Packaging & Containers
+The Goodyear Tire & Rubber Co.,0.023,GT,"Akron, OH",Consumer Cyclical,Auto Parts
+"Apollo Group, Inc. (Class A)",0.023,APOL,"Phoenix, AZ",Consumer Discretionary,Education Services
+"The NASDAQ OMX Group, Inc.",0.022,NDAQ,"New York City, New York",Financials,Financial Exchanges & Data
+Abercrombie & Fitch Co. (Class A),0.022,ANF,"New Albany, OH",Consumer Cyclical,Apparel Retail
+JDS Uniphase Corp.,0.021,JDSU,"Milpitas, CA",Information Technology,Communications Equipment
+"Pitney Bowes, Inc.",0.021,PBI,"Stamford, CT",Industrials,Integrated Freight & Logistics
+GameStop Corp. (Class A),0.021,GME,"Grapevine, TX",Consumer Cyclical,Specialty Retail
+United States Steel Corp.,0.021,X,"Pittsburgh, PA",Materials,Steel
+"Teradyne, Inc.",0.02,TER,"North Reading, Massachusetts",Information Technology,Semiconductor Materials & Equipment
+Tenet Healthcare Corp.,0.02,THC,"Dallas, TX",Healthcare,Medical Care Facilities
+"Genworth Financial, Inc. (Class A)",0.02,GNW,"Richmond, VA",Financial Services,Insurance - Life
+First Horizon National Corp.,0.019,FHN,"Memphis, TN",Financial Services,Banks - Regional
+ETRADE Financial Corp.,0.017,ETFC,"New York, NY",Financials,Investment Banking & Brokerage
+"Ryder System, Inc.",0.015,R,"Coral Gables, FL",Industrials,Rental & Leasing Services
+R.R. Donnelley & Sons Co.,0.015,RRD,"Chicago, IL",Industrials,Commercial Printing
+"Advanced Micro Devices, Inc.",0.015,AMD,"Santa Clara, California",Information Technology,Semiconductors
+"Big Lots, Inc.",0.015,BIG,"Columbus, OH",Consumer Discretionary,General Merchandise Stores
+"Federated Investors, Inc. (Class B)",0.015,FII,"Pittsburgh, PA",Financials,Asset Management & Custody Banks
+"AutoNation, Inc.",0.014,AN,"Fort Lauderdale, FL",Consumer Cyclical,Auto & Truck Dealerships
+The Washington Post Co. (Class B),0.014,WPO,"Washington, D.C.",Consumer Discretionary,Broadcasting
+"Alpha Natural Resources, Inc.",0.011,ANR,"Bristol, VA",Energy,Coal & Consumable Fuels
+"First Solar, Inc.",0.01,FSLR,"Tempe, Arizona",Information Technology,Semiconductors
+Titanium Metals Corp.,0.008,TIE,"Dallas, TX",Materials,Steel

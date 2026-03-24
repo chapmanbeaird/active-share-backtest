@@ -1,0 +1,22 @@
+Consumer Cyclicals-Capital Equipment
+Consumer Cyclicals-Commercial Services and Supplies
+Consumer Cyclicals-Consumer Durables
+Consumer Cyclicals-Media and Entertainment
+Consumer Cyclicals-Retail and Other Consumer Cyclicals
+Consumer Staples-Consumer Staples
+Energy:-Exploration and Production
+Energy:-Integrateds, Oil Service, Refiners and Other
+Financials:-Banks, Consumer Finance and Other
+Financials:-Capital Markets
+Financials:-Insurance
+Financials:-Real Estate
+Health Care:-Biotechnology
+Health Care:-Health Care Equipment and Services
+Health Care:-Pharmaceuticals
+Industrial Commodities-Industrial Commodities
+Industrial Commodities-Transports
+Technology:-Semiconductors
+Technology:-Technology Hardware
+Technology:-Technology Software and Services
+Telecommunication Services-Telecommunication Services
+Utilities-Utilities
