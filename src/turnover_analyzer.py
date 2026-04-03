@@ -100,13 +100,13 @@ def compute_turnover(
     """
     Compute year-over-year turnover statistics.
 
-    For each year transition Y -> Y+1:
+    For each holding year transition Y -> Y+1:
     - Compare stock lists (names turnover)
-    - Drift Y's weights by returns, compare to Y+1 target weights
+    - Drift Y's weights by Y's returns, compare to Y+1 target weights
 
     Args:
-        portfolios: {year: DataFrame with ticker, weight columns}
-        stock_returns: {year: DataFrame with ticker, return columns}
+        portfolios: {holding_year: DataFrame with ticker, weight columns}
+        stock_returns: {holding_year: DataFrame with ticker, return columns}
 
     Returns:
         DataFrame with turnover stats per year transition
@@ -129,7 +129,7 @@ def compute_turnover(
         held = prev_tickers & next_tickers
 
         # Build return lookup from stock_returns[y_prev]
-        # These are returns for the holding period (year y_prev+1)
+        # These are returns earned during holding year y_prev
         ret_lookup = {}
         if y_prev in stock_returns and stock_returns[y_prev] is not None:
             ret_df = stock_returns[y_prev]
@@ -212,7 +212,7 @@ class TaxSimulator:
         return no_harvest, with_harvest
 
     def _get_return_lookup(self, year: int) -> Dict[str, float]:
-        """Build ticker -> total return % lookup for a snapshot year."""
+        """Build ticker -> total return % lookup for a holding year."""
         lookup = {}
         if year in self.stock_returns and self.stock_returns[year] is not None:
             ret_df = self.stock_returns[year]
@@ -386,7 +386,7 @@ class TaxSimulator:
             final_unrealized = sum(pos.unrealized_gain for pos in positions.values())
 
             rows.append({
-                'year': last_year + 1,  # The return year (e.g., 2025 for 2024 snapshot)
+                'year': last_year + 1,  # End-of-period value (e.g., 2026 = after 2025 returns)
                 'portfolio_value': round(final_value, 2),
                 'realized_gains': 0.0,
                 'realized_losses': 0.0,

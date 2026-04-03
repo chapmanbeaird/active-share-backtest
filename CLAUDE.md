@@ -66,11 +66,11 @@ Snapshots are year-end December. Returns are measured Jan 1 → Dec 31 of the fo
 
 ## Running
 ```bash
-# Full backtest (1999-2024 snapshots, 2000-2025 returns)
+# Full backtest (holding years 2000-2025)
 python3 run.py
 
 # Quick test (2 years)
-python3 run.py --start-year 2023 --end-year 2025
+python3 run.py --start-year 2024 --end-year 2025
 
 # Test optimizer on single year
 python3 src/milp_optimizer.py
@@ -147,7 +147,7 @@ e.g., `BUD.2` → `BUD`, `EDS.` → `EDS`, `DNB.I` → `DNB`, `DELL.1` → `DELL
 ## Running
 ```bash
 # Quick single-year test
-python3 run.py --start-year 2020 --end-year 2021
+python3 run.py --start-year 2021 --end-year 2021
 
 # Full backtest
 python3 run.py
