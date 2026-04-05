@@ -55,6 +55,7 @@ class FMPClient:
         # Create cache directories
         if self.use_cache:
             (self.cache_dir / "prices").mkdir(parents=True, exist_ok=True)
+            (self.cache_dir / "prices_adjusted").mkdir(parents=True, exist_ok=True)
             (self.cache_dir / "dividends").mkdir(parents=True, exist_ok=True)
             (self.cache_dir / "profiles").mkdir(parents=True, exist_ok=True)
             (self.cache_dir / "scores").mkdir(parents=True, exist_ok=True)
@@ -170,7 +171,7 @@ class FMPClient:
 
     def get_historical_prices(self, symbol: str, start: str, end: str) -> pd.DataFrame:
         """
-        Get historical end-of-day prices for a symbol.
+        Get dividend-adjusted historical end-of-day prices for a symbol.
 
         Args:
             symbol: Ticker symbol (e.g., 'AAPL')
@@ -178,21 +179,21 @@ class FMPClient:
             end: End date (YYYY-MM-DD)
 
         Returns:
-            DataFrame with columns: date, open, high, low, close, adjClose, volume, dividend
+            DataFrame with columns: symbol, date, adjOpen, adjHigh, adjLow, adjClose, volume
         """
         cache_key = f"{symbol}_{start}_{end}"
 
         # Check cache
-        cached = self._load_from_cache("prices", cache_key)
+        cached = self._load_from_cache("prices_adjusted", cache_key)
         if cached is not None:
             df = pd.DataFrame(cached)
             if not df.empty:
                 df['date'] = pd.to_datetime(df['date'])
                 return df
 
-        # Fetch from API (stable endpoint)
+        # Fetch from API (stable dividend-adjusted endpoint)
         data = self._make_request(
-            "historical-price-eod/full",
+            "historical-price-eod/dividend-adjusted",
             params={"symbol": symbol, "from": start, "to": end},
             use_stable=True
         )
@@ -212,7 +213,7 @@ class FMPClient:
             return pd.DataFrame()
 
         # Save to cache
-        self._save_to_cache("prices", cache_key, records)
+        self._save_to_cache("prices_adjusted", cache_key, records)
 
         df = pd.DataFrame(records)
         df['date'] = pd.to_datetime(df['date'])
@@ -331,7 +332,10 @@ class FMPClient:
 
     def get_total_return(self, symbol: str, start: str, end: str) -> tuple:
         """
-        Calculate total return (price + dividends) for a symbol over a period.
+        Calculate total return (price + reinvested dividends) using dividend-adjusted prices.
+
+        Uses adjClose from the dividend-adjusted endpoint, which accounts for
+        both stock splits and dividend reinvestment at ex-div prices.
 
         Args:
             symbol: Ticker symbol
@@ -339,51 +343,25 @@ class FMPClient:
             end: End date (YYYY-MM-DD)
 
         Returns:
-            Tuple of (total_return, price_return, dividend_return) as percentages,
-            or (None, None, None) if data not available
+            Tuple of (total_return, total_return, 0.0) as percentages,
+            or (None, None, None) if data not available.
+            Second and third values kept for backward compatibility.
         """
-        # Get price data
         prices = self.get_historical_prices(symbol, start, end)
         if prices.empty or len(prices) < 2:
             return None, None, None
 
-        # Ensure prices are sorted ascending by date (oldest first)
         prices = prices.sort_values('date', ascending=True).reset_index(drop=True)
 
-        # Get start price (earliest date) and end price (latest date)
-        close_col = 'close' if 'close' in prices.columns else 'adjClose'
-        first_price = float(prices.iloc[0][close_col])
-        last_price = float(prices.iloc[-1][close_col])
+        first_price = float(prices.iloc[0]['adjClose'])
+        last_price = float(prices.iloc[-1]['adjClose'])
 
         if first_price is None or last_price is None or first_price == 0:
             return None, None, None
 
-        price_return = ((last_price - first_price) / first_price) * 100
+        total_return = ((last_price - first_price) / first_price) * 100
 
-        # Get dividends and filter to date range
-        dividends = self.get_dividends(symbol)  # Get all, then filter
-
-        if dividends.empty:
-            dividend_return = 0.0
-        else:
-            # Filter dividends to the date range
-            start_date = pd.to_datetime(start)
-            end_date = pd.to_datetime(end)
-            period_dividends = dividends[
-                (dividends['date'] >= start_date) &
-                (dividends['date'] <= end_date)
-            ]
-
-            # Sum dividends paid during period
-            if period_dividends.empty or 'dividend' not in period_dividends.columns:
-                dividend_return = 0.0
-            else:
-                total_dividends = period_dividends['dividend'].sum()
-                dividend_return = (total_dividends / first_price) * 100
-
-        total_return = price_return + dividend_return
-
-        return total_return, price_return, dividend_return
+        return total_return, total_return, 0.0
 
     def get_batch_returns(self, symbols: List[str], start: str, end: str,
                           progress_callback=None) -> pd.DataFrame:
@@ -397,7 +375,7 @@ class FMPClient:
             progress_callback: Optional callback(current, total) for progress
 
         Returns:
-            DataFrame with columns: ticker, total_return, price_return, dividend_return
+            DataFrame with columns: ticker, total_return
         """
         results = []
         missing = []
@@ -406,14 +384,12 @@ class FMPClient:
             if progress_callback:
                 progress_callback(i + 1, len(symbols))
 
-            total_ret, price_ret, div_ret = self.get_total_return(symbol, start, end)
+            total_ret, _, _ = self.get_total_return(symbol, start, end)
 
             if total_ret is not None:
                 results.append({
                     'ticker': symbol,
                     'total_return': total_ret,
-                    'price_return': price_ret,
-                    'dividend_return': div_ret
                 })
             else:
                 missing.append(symbol)

@@ -53,6 +53,20 @@ SP500_TOTAL_RETURNS = {
     2025: 17.88,
 }
 
+# Last trading day of each year (for correct calendar-year return calculation).
+# FMP returns no data when Dec 31 falls on a weekend, so we hardcode exact dates.
+LAST_TRADING_DAY = {
+    1999: "1999-12-31", 2000: "2000-12-29", 2001: "2001-12-31",
+    2002: "2002-12-31", 2003: "2003-12-31", 2004: "2004-12-31",
+    2005: "2005-12-30", 2006: "2006-12-29", 2007: "2007-12-31",
+    2008: "2008-12-31", 2009: "2009-12-31", 2010: "2010-12-31",
+    2011: "2011-12-30", 2012: "2012-12-31", 2013: "2013-12-31",
+    2014: "2014-12-31", 2015: "2015-12-31", 2016: "2016-12-30",
+    2017: "2017-12-29", 2018: "2018-12-31", 2019: "2019-12-31",
+    2020: "2020-12-31", 2021: "2021-12-31", 2022: "2022-12-30",
+    2023: "2023-12-29", 2024: "2024-12-31", 2025: "2025-12-31",
+}
+
 # Tickers with dot suffixes that are share classes (dot → hyphen for FMP)
 _SHARE_CLASS_TICKERS = {'BRK.A', 'BRK.B', 'BF.B', 'LEN.B', 'FSL.B', 'TAP.B'}
 
@@ -256,36 +270,26 @@ def ticker_to_fmp(ticker: str) -> str:
 def fetch_returns_fmp(fmp_client: FMPClient, tickers: List[str], start_date: str,
                       end_date: str) -> Tuple[pd.DataFrame, List[str]]:
     """
-    Fetch historical returns using FMP API, with fallback to hardcoded verified returns
-    for tickers FMP cannot find (acquired/merged/delisted companies).
+    Fetch historical total returns using FMP dividend-adjusted prices,
+    with fallback to hardcoded verified returns for acquired/delisted companies.
 
     Returns:
-        Tuple of (returns DataFrame with columns [ticker, return, price_return, dividend_return],
+        Tuple of (returns DataFrame with columns [ticker, return],
                   list of missing tickers)
     """
     results = []
     missing = []
-    return_year = int(start_date[:4])
+    return_year = int(end_date[:4])
 
     for ticker in tickers:
         fmp_ticker = ticker_to_fmp(ticker)
-        total_ret, price_ret, div_ret = fmp_client.get_total_return(fmp_ticker, start_date, end_date)
+        total_ret, _, _ = fmp_client.get_total_return(fmp_ticker, start_date, end_date)
 
         if total_ret is not None:
-            results.append({
-                'ticker': ticker,
-                'return': total_ret,
-                'price_return': price_ret,
-                'dividend_return': div_ret
-            })
+            results.append({'ticker': ticker, 'return': total_ret})
         elif (ticker, return_year) in FALLBACK_RETURNS:
-            fb_total, fb_price, fb_div = FALLBACK_RETURNS[(ticker, return_year)]
-            results.append({
-                'ticker': ticker,
-                'return': fb_total,
-                'price_return': fb_price,
-                'dividend_return': fb_div
-            })
+            fb_total = FALLBACK_RETURNS[(ticker, return_year)][0]
+            results.append({'ticker': ticker, 'return': fb_total})
         else:
             missing.append(ticker)
 
@@ -300,15 +304,15 @@ def get_benchmark_return(holding_year: int) -> float:
     return ret
 
 
-def calculate_portfolio_return(portfolio: pd.DataFrame, returns: pd.DataFrame) -> Tuple[float, float, float, float]:
+def calculate_portfolio_return(portfolio: pd.DataFrame, returns: pd.DataFrame) -> Tuple[float, float]:
     """
-    Calculate weight-adjusted portfolio return with dividend breakdown.
+    Calculate weight-adjusted portfolio total return.
 
     Returns:
-        Tuple of (total_return, price_return, dividend_return, coverage_pct)
+        Tuple of (total_return, coverage_pct)
     """
     if returns.empty or 'ticker' not in returns.columns:
-        return np.nan, np.nan, np.nan, 0.0
+        return np.nan, 0.0
 
     merged = pd.merge(portfolio, returns, on='ticker', how='left')
 
@@ -319,14 +323,12 @@ def calculate_portfolio_return(portfolio: pd.DataFrame, returns: pd.DataFrame) -
 
     merged = merged.dropna(subset=['return'])
     if len(merged) == 0:
-        return np.nan, np.nan, np.nan, 0.0
+        return np.nan, 0.0
 
     merged['norm_weight'] = merged['weight'] / merged['weight'].sum()
     total_return = (merged['norm_weight'] * merged['return']).sum()
-    price_return = (merged['norm_weight'] * merged['price_return']).sum()
-    dividend_return = (merged['norm_weight'] * merged['dividend_return']).sum()
 
-    return total_return, price_return, dividend_return, coverage_pct
+    return total_return, coverage_pct
 
 
 def calculate_active_share(portfolio: pd.DataFrame, benchmark: pd.DataFrame) -> float:
@@ -392,26 +394,22 @@ def run_single_year(snapshot_year: int, fmp_client: FMPClient, target_stocks: in
     max_ig_dev = max(abs(port_ig.get(g, 0) - bench_ig[g]) for g in bench_ig.index)
     passed_ig = max_ig_dev <= 2.01
 
-    # Holding period: Jan 1 to Dec 31 of the holding year
-    start_date = f"{holding_year}-01-01"
-    end_date = f"{holding_year}-12-31"
+    # Holding period: last trading day close (prior year) to last trading day close (holding year)
+    start_date = LAST_TRADING_DAY[holding_year - 1]
+    end_date = LAST_TRADING_DAY[holding_year]
 
     # Fetch returns
     all_tickers = portfolio['ticker'].tolist()
     returns_df, missing_tickers = fetch_returns_fmp(fmp_client, all_tickers, start_date, end_date)
 
-    portfolio_return, price_return, dividend_return, coverage = calculate_portfolio_return(portfolio, returns_df)
+    portfolio_return, coverage = calculate_portfolio_return(portfolio, returns_df)
     benchmark_return = get_benchmark_return(holding_year)
     active_return = portfolio_return - benchmark_return if not (pd.isna(portfolio_return) or pd.isna(benchmark_return)) else np.nan
 
     return {
         'year': holding_year,
         'portfolio_return': portfolio_return,
-        'price_return': price_return,
-        'dividend_return': dividend_return,
         'benchmark_return': benchmark_return,
-        'benchmark_price_return': np.nan,
-        'benchmark_dividend_return': np.nan,
         'active_return': active_return,
         'active_share': active_share,
         'max_sector_deviation': max_sector_dev,
@@ -555,19 +553,6 @@ def print_results(results_df: pd.DataFrame, missing_df: pd.DataFrame):
               f"{row['max_ig_deviation']:>9.2f}% {row['coverage_pct']:>9.0f}%")
 
     print("-" * 110)
-
-    # Dividend analysis
-    div_valid = valid.dropna(subset=['dividend_return'])
-    if len(div_valid) > 0 and not div_valid['dividend_return'].isna().all():
-        print(f"\nDIVIDEND ANALYSIS")
-        print("-" * 80)
-        for _, row in div_valid.iterrows():
-            if pd.notna(row.get('price_return')) and pd.notna(row.get('dividend_return')):
-                print(f"  {int(row['year'])}: price={row['price_return']:+.1f}%  "
-                      f"div={row['dividend_return']:+.2f}%  total={row['portfolio_return']:+.1f}%")
-        avg_div = div_valid['dividend_return'].mean()
-        print(f"\n  Avg Dividend Contribution: {avg_div:.2f}% annually")
-        print("-" * 80)
 
     # Missing tickers
     if len(missing_df) > 0:
@@ -764,18 +749,12 @@ def save_portfolio_snapshots(portfolios: Dict[int, pd.DataFrame],
             # Merge returns
             if not returns_df.empty:
                 held = held.merge(
-                    returns_df[['ticker', 'return', 'price_return', 'dividend_return']],
+                    returns_df[['ticker', 'return']],
                     on='ticker', how='left'
                 )
-                held = held.rename(columns={
-                    'return': 'Total Return (%)',
-                    'price_return': 'Price Return (%)',
-                    'dividend_return': 'Dividend Return (%)',
-                })
+                held = held.rename(columns={'return': 'Total Return (%)'})
             else:
                 held['Total Return (%)'] = np.nan
-                held['Price Return (%)'] = np.nan
-                held['Dividend Return (%)'] = np.nan
 
             held['Difference'] = held['Port. Weight'] - held['Bench. Weight']
             held = held.sort_values('Port. Weight', ascending=False)
@@ -784,12 +763,12 @@ def save_portfolio_snapshots(portfolios: Dict[int, pd.DataFrame],
             snapshot = held[[
                 'ticker', 'company_name', 'sector', 'industry_group',
                 'Port. Weight', 'Bench. Weight', 'Difference',
-                'Total Return (%)', 'Price Return (%)', 'Dividend Return (%)',
+                'Total Return (%)',
             ]].copy()
             snapshot.columns = [
                 'Ticker', 'Name', 'Sector', 'Industry Group',
                 'Port. Weight', 'Bench. Weight', 'Difference',
-                'Total Return (%)', 'Price Return (%)', 'Dividend Return (%)',
+                'Total Return (%)',
             ]
 
             sheet_name = str(year)
