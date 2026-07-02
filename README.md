@@ -37,8 +37,9 @@ still behaving as much like the index as possible.
 "Behaving like the index" is measured by **active share** — how different your
 holdings are from the index (see [The key ideas](#3-the-key-ideas)). This tool
 finds the 60 stocks and their weights that make active share **as low as it can
-possibly be**, subject to two guardrails: your portfolio's **sector** mix and
-**industry-group** mix must each stay within **2 percentage points** of the index.
+possibly be**, subject to a handful of rules — most importantly, your portfolio's
+**sector** mix and **industry-group** mix must each stay within **2 percentage
+points** of the index (the full list is in [The key ideas](#3-the-key-ideas)).
 
 You run this **every 3–6 months** with a fresh S&P 500 snapshot. Each run produces
 an updated 60-stock portfolio.
@@ -79,16 +80,24 @@ in your portfolio and its weight in the index. A 60-stock portfolio can't be 0%
 (it's missing ~440 names), so this tool finds the **lowest achievable** number.
 For the S&P 500 today that's typically in the **30s–40s percent**.
 
-### The two guardrails (±2%)
-Left alone, the "lowest active share" answer could still end up lopsided — e.g. too
-heavy in tech. So we add two rules:
+### The rules the optimizer follows
+"Lowest active share" on its own could still end up lopsided (too heavy in tech) or
+silly (one giant position). So the optimizer minimizes active share subject to **five
+rules**:
 
-- **Sector guardrail:** your weight in each of the **11 GICS sectors** must be within
-  **±2 percentage points** of the index's weight in that sector.
-- **Industry-group guardrail:** your weight in each of the **20 industry groups** must
-  be within **±2 percentage points** of the index.
+1. **Exactly 60 holdings.**
+2. **Fully invested** — the 60 weights add up to 100%.
+3. **Per-stock weight cap** — no single position can run away (the three-part cap
+   described just below).
+4. **Sector band** — your weight in each of the **11 GICS sectors** stays within
+   **±2 percentage points** of the index's weight in that sector.
+5. **Industry-group band** — your weight in each of the **20 industry groups** stays
+   within **±2 percentage points** of the index.
 
-These keep the 60-stock portfolio broadly shaped like the index.
+Rules 4 and 5 keep the portfolio broadly shaped like the index; rule 3 keeps
+individual positions sane. (Under the hood there are also two purely mechanical
+constraints that let the solver choose *which* 60 stocks to hold and compute active
+share — those aren't portfolio choices, just math plumbing.)
 
 ### Sector vs. industry group vs. industry
 The data has three levels of classification. Two of them are enforced; one is just
