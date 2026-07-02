@@ -168,8 +168,8 @@ Open that `portfolio_2026-06.xlsx` file to see your 60 stocks.
 ### Step 5 — (Sometimes) classify a few new stocks
 Occasionally the index adds a **brand-new company** the tool has never seen. The
 **sector** always comes straight from the file, but the tool won't guess the
-**industry group** — so it **asks you, right there in the window**, one company at a
-time:
+**industry group** or the **industry** — so it **asks you, right there in the window**,
+one company at a time. First it asks for the **industry group**:
 ```
 [1/7]  BNY — Bank of New York Mellon Corp
         Sector (already set): Financials
@@ -181,12 +181,30 @@ time:
            ...
           20. Utilities
         Enter a number 1-20, the exact group name, or 'q' to quit: 9
-        -> BNY = Finance
 ```
-Just type the **number** of the best-fitting group (or the exact group name). It only
-accepts one of the 20 groups; anything else re-asks. Type **`q`** to quit without
+then, once the group is set, for the **industry** — it lists the industries already
+seen in that group so you can pick one by number, or type a new name:
+```
+        Now choose BNY's industry (shown for reference; not a constraint):
+           1. Finance/Rental/Leasing
+           2. Financial Conglomerates
+           3. Insurance Brokers/Services
+           4. Investment Banks/Brokers
+           ...
+        Enter a number 1-14, or type a new industry name (or 'q' to quit): 4
+        -> BNY = Finance / Investment Banks/Brokers
+```
+Type the **number** of the best fit (or the exact/new name). The **group** must be one
+of the 20 (anything else re-asks); the **industry** accepts any name but **can't be
+left blank** — so your saved records always carry both. Type **`q`** to quit without
 saving. Your answers are **saved automatically** to `data/manual_classifications.csv`,
 so you're only ever asked about each company **once** — future runs remember it.
+
+> Why it asks for the industry: your FactSet export doesn't contain it (the export's
+> only classification columns are the GICS sector and a *GICS* industry group, which is
+> a different system — see [Assumptions](#7-assumptions-the-tool-makes-please-read)).
+> For every stock already in your history the industry is filled in automatically, so
+> you're only ever prompted for a genuine first-time index entrant.
 
 > Tip: pick the group that best matches the company's business — a bank → `Finance`, a
 > software company → `Technology Services`, a chip/hardware maker → `Electronic
@@ -197,7 +215,22 @@ so you're only ever asked about each company **once** — future runs remember i
 ## 5. Understanding the output
 
 ### Your portfolio: `results/portfolios/portfolio_<date>.xlsx`
-This is the deliverable. One sheet with three stacked tables:
+This is the deliverable. One sheet, starting with a summary and then three stacked
+tables:
+
+**PORTFOLIO SUMMARY** — the headline numbers at the very top, so you don't have to
+scan the tables to see how the portfolio came out:
+
+| Metric | Example | Meaning |
+|---|---|---|
+| Holdings | 60 of 503 benchmark names | how many stocks you hold vs. how many are in the index |
+| Portfolio Active Share | 33.40% | the number the tool minimized (see [key ideas](#3-the-key-ideas)) |
+| Portfolio Weight Sum | 100.00% | a sanity check — the 60 weights should add to 100% |
+| Max Sector Deviation | 2.00% (PASS vs 2.00% limit) | worst sector's gap from the index, and whether it's inside ±2% |
+| Max Industry-Group Deviation | 2.00% (PASS vs 2.00% limit) | same, for industry groups |
+| Largest Position | NVDA (7.61%) | your biggest single holding |
+| Largest Overweight | LLY (+2.97%) | where you're most *above* the index |
+| Largest Underweight | TMO (−0.29%) | where you're most *below* the index |
 
 **SECTOR BREAKDOWN** and **INDUSTRY GROUP BREAKDOWN** — how your portfolio compares to
 the index, bucket by bucket:
@@ -240,22 +273,30 @@ into `data/processed/` so the inbox is clean for next time.
 
 ## 6. The manual classification file
 
-**File:** `data/manual_classifications.csv` — the tool's memory of the groups you've
-assigned.
+**File:** `data/manual_classifications.csv` — the tool's memory of the classifications
+you've assigned.
 
-**Why it exists:** the tool figures out each stock's industry group by looking up its
-**history** (the same company always keeps the same group). A company that's brand new
-to the index has no history, so the tool asks you once (Step 5) and **records your
-answer here** so it never has to ask again.
+**Why it exists:** the tool figures out each stock's industry group **and** industry by
+looking up its **history** (the same company always keeps the same classification). A
+company that's brand new to the index has no history — and the FactSet export doesn't
+carry these either — so the tool asks you once (Step 5) and **records your answers
+here** so it never has to ask again.
 
 **You normally don't touch this file** — the interactive prompt writes to it for you.
 But you can open it in Excel or any text editor to review or change a past answer.
 
-**Format:** three columns. `industry` is optional (it's display-only).
+**Format:** a header row followed by three columns per stock. The prompt always fills
+in all three:
 ```
 ticker,industry_group,industry
 VRT,Producer Manufacturing,Electrical Products
 ```
+
+> **Keep the first line — `ticker,industry_group,industry` — intact.** It's the header
+> the tool reads the columns from. If you hand-edit the file and delete or blank that
+> line, the tool will stop with a clear message asking you to restore it. (`industry`
+> is display-only, so a row with a blank industry still loads, but the prompt never
+> creates one.)
 
 **The `industry_group` must be exactly one of these 20 names** (the same list the prompt
 shows you):
@@ -289,11 +330,13 @@ things to check.
    automatically.
 3. **Sector names must be the 11 standard GICS sectors.** If the export has an
    unexpected sector name, the tool stops (it means the wrong file or a changed format).
-4. **Industry group is recovered from history by ticker — not from the export.** The
-   FactSet "Active Share" report gives *GICS* industry groups, which are a different
-   system from the 20 groups this project uses. So the tool looks each stock up in the
-   historical data instead. New names are asked about interactively (Step 5) and
-   remembered in the manual file (section 6).
+4. **Industry group *and* industry are recovered from history by ticker — not from the
+   export.** The FactSet "Active Share" report carries only a GICS sector and a *GICS*
+   industry group, which is a different system from the 20 groups this project uses, and
+   it has no `industry` column at all. So the tool looks each stock's group and industry
+   up in the historical data instead. Genuinely new names (no history) are asked about
+   interactively — both group and industry (Step 5) — and remembered in the manual file
+   (section 6).
 5. **Tickers are converted to house format:** the `-US` country suffix is removed and
    share-class dots are kept (`GOOGL-US` → `GOOGL`, `BRK.B-US` → `BRK.B`).
 6. **The snapshot date is read from inside the file** (the `30-JUN-2026`-style cell) and
@@ -340,7 +383,8 @@ added later.
 
 | What you see | What to do |
 |---|---|
-| **It asks "N new stock(s) need an industry group"** | Normal — type the number of the best-fitting group for each (or `q` to quit). Your answers are saved automatically (section 6). |
+| **It asks "N new stock(s) need a classification"** | Normal — for each new company type the number of the best-fitting industry group, then pick or type its industry (or `q` to quit). Your answers are saved automatically (section 6). |
+| **"manual_classifications.csv is missing its header row"** | You (or an edit) deleted the top `ticker,industry_group,industry` line. Put it back as the first line of the file and re-run (section 6). |
 | **"no .xlsx file found in data/incoming"** | Put your FactSet export into the `data/incoming/` folder. |
 | **"found N files … expected exactly one"** | Leave only the newest export in `data/incoming/`; remove the others. |
 | **"missing expected column(s)"** | The file isn't the "Active Share" report, or the sheet name differs. Check the export, or pass `--sheet "<name>"`. |
@@ -370,7 +414,7 @@ data/
   incoming/                     <- DROP your FactSet export here
   processed/                    <- raw exports after processing (archive)
   current-snapshots.xlsx        <- cleaned, house-format copy of each snapshot
-  manual_classifications.csv    <- saved industry-group answers for new stocks
+  manual_classifications.csv    <- saved industry-group + industry answers for new stocks
   1999-2025-S&P500-cleaned.xlsx <- frozen historical benchmark (never changes)
 
 results/
