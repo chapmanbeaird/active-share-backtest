@@ -30,7 +30,7 @@ def build_sections(portfolio: pd.DataFrame, benchmark: pd.DataFrame):
     """Build the sector / industry-group / stock-detail tables.
 
     Mirrors save_portfolio_holdings() in backtest_engine.py so the output
-    workbook matches the historical portfolio_holdings.xlsx layout.
+    workbook matches the historical holdings.xlsx layout.
     """
     merged = pd.merge(
         benchmark[['ticker', 'weight', 'sector', 'industry_group', 'industry', 'company_name']],
@@ -107,6 +107,40 @@ def build_sections(portfolio: pd.DataFrame, benchmark: pd.DataFrame):
     return sector_df, ig_df, stock_df, active_share, max_sector_dev, max_ig_dev
 
 
+def build_summary(stock_df, active_share, max_sector_dev, max_ig_dev, label):
+    """Top-of-sheet portfolio summary as a Metric/Value table.
+
+    Surfaces the headline numbers (active share, constraint compliance, size,
+    concentration) so they're readable at a glance without scanning the detail
+    tables below."""
+    held = stock_df[stock_df['Port. Weight'] > 0]
+    n_held, n_total = len(held), len(stock_df)
+    port_sum = float(held['Port. Weight'].sum())
+    sector_ok = 'PASS' if max_sector_dev <= 2.01 else 'FAIL'
+    ig_ok = 'PASS' if max_ig_dev <= 2.01 else 'FAIL'
+
+    def _pos(row, signed=False):
+        diff = f"{row['Difference']:+.2f}%" if signed else f"{row['Port. Weight']:.2f}%"
+        return f"{row['Ticker']} ({diff})"
+
+    top = held.loc[held['Port. Weight'].idxmax()]
+    over = stock_df.loc[stock_df['Difference'].idxmax()]
+    under = stock_df.loc[stock_df['Difference'].idxmin()]
+
+    metrics = [
+        ('Snapshot', str(label)),
+        ('Holdings', f"{n_held} of {n_total} benchmark names"),
+        ('Portfolio Active Share', f"{active_share:.2f}%"),
+        ('Portfolio Weight Sum', f"{port_sum:.2f}%"),
+        ('Max Sector Deviation', f"{max_sector_dev:.2f}%  ({sector_ok} vs 2.00% limit)"),
+        ('Max Industry-Group Deviation', f"{max_ig_dev:.2f}%  ({ig_ok} vs 2.00% limit)"),
+        ('Largest Position', _pos(top)),
+        ('Largest Overweight', _pos(over, signed=True)),
+        ('Largest Underweight', _pos(under, signed=True)),
+    ]
+    return pd.DataFrame(metrics, columns=['Metric', 'Value'])
+
+
 def generate_portfolio_excel(benchmark, label, out_path, target_stocks=60, verbose=True):
     """Solve the MILP for one benchmark snapshot and write the holdings workbook.
 
@@ -132,15 +166,20 @@ def generate_portfolio_excel(benchmark, label, out_path, target_stocks=60, verbo
 
     sector_df, ig_df, stock_df, active_share, max_sector_dev, max_ig_dev = build_sections(portfolio, benchmark)
     n_held = int((stock_df['Port. Weight'] > 0).sum())
+    summary_df = build_summary(stock_df, active_share, max_sector_dev, max_ig_dev, label)
 
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with pd.ExcelWriter(out_path, engine='openpyxl') as writer:
         sheet = str(label)
         row = 0
-        pd.DataFrame([{'': f'MILP Portfolio — snapshot {label} (Active Share: {active_share:.2f}%)'}]) \
+        pd.DataFrame([{'': f'MILP Portfolio — snapshot {label}'}]) \
             .to_excel(writer, sheet_name=sheet, startrow=row, index=False, header=False)
         row += 2
+        pd.DataFrame([{'': 'PORTFOLIO SUMMARY'}]).to_excel(writer, sheet_name=sheet, startrow=row, index=False, header=False)
+        row += 1
+        summary_df.to_excel(writer, sheet_name=sheet, startrow=row, index=False)
+        row += len(summary_df) + 2
         pd.DataFrame([{'': 'SECTOR BREAKDOWN'}]).to_excel(writer, sheet_name=sheet, startrow=row, index=False, header=False)
         row += 1
         sector_df.to_excel(writer, sheet_name=sheet, startrow=row, index=False)
@@ -184,7 +223,7 @@ def main():
                              '(default: the historical 1999-2025 workbook)')
     parser.add_argument('--target-stocks', type=int, default=60, help='Number of stocks (default: 60)')
     parser.add_argument('--out', default=None,
-                        help='Output xlsx path (default: results-excel/portfolio_<sheet>.xlsx)')
+                        help='Output xlsx path (default: results/portfolios/portfolio_<sheet>.xlsx)')
     args = parser.parse_args()
 
     print(f"Loading benchmark snapshot from sheet '{args.sheet}'...")
@@ -197,7 +236,7 @@ def main():
           f"weight sum {benchmark['weight'].sum():.4f}%")
 
     print(f"\nSolving MILP ({args.target_stocks} stocks, ±2% sector, ±2% industry_group)...")
-    out_path = Path(args.out) if args.out else Path('results-excel') / f'portfolio_{args.sheet}.xlsx'
+    out_path = Path(args.out) if args.out else Path('results') / 'portfolios' / f'portfolio_{args.sheet}.xlsx'
     try:
         generate_portfolio_excel(benchmark, args.sheet, out_path, target_stocks=args.target_stocks)
     except RuntimeError as e:

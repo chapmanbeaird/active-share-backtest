@@ -73,6 +73,9 @@ class NormalizationReport:
     sector_count: int = 0
     igroup_count: int = 0
     valid_igroups: List[str] = field(default_factory=list)
+    # {industry_group -> sorted list of industries seen for it in history}, so the
+    # interactive classifier can offer real industry choices for a chosen group.
+    industries_by_group: Dict[str, List[str]] = field(default_factory=dict)
     warnings: List[str] = field(default_factory=list)
 
 
@@ -155,6 +158,21 @@ def _valid_industries(inheritance_map: Dict[str, Tuple[str, str]]) -> set:
     return {ind for _ig, ind in inheritance_map.values() if ind}
 
 
+def industries_for_groups(inheritance_map: Dict[str, Tuple[str, str]]
+                          ) -> Dict[str, List[str]]:
+    """{industry_group -> sorted list of industries seen for it in history}.
+
+    Used to offer the interactive classifier a realistic set of industry choices
+    for whichever group the user picks (industry is display-only, so a custom
+    name is still allowed)."""
+    out: Dict[str, set] = {}
+    for ig, ind in inheritance_map.values():
+        if not ig or not ind:
+            continue
+        out.setdefault(str(ig), set()).add(str(ind))
+    return {g: sorted(inds) for g, inds in out.items()}
+
+
 # ---------------------------------------------------------------------------
 # Manual classifications
 # ---------------------------------------------------------------------------
@@ -175,8 +193,22 @@ def load_manual_classifications(csv_path=MANUAL_CSV_PATH,
         return result
     with open(csv_path, newline="") as fh:
         reader = csv.DictReader(fh)
+        header = [(f or "").strip().lower() for f in (reader.fieldnames or [])]
+        if "ticker" not in header:
+            raise SnapshotError(
+                f"{csv_path.name} is missing its header row. The first line must be "
+                f"'ticker,industry_group,industry' (found: {reader.fieldnames!r}). "
+                f"Restore the header and re-run."
+            )
         for raw in reader:
-            row = { (k or "").strip().lower(): (v or "").strip() for k, v in raw.items() }
+            # A row with more columns than the header puts the extras in a list
+            # under the None key; coerce any non-string cell to a plain string so
+            # a malformed row degrades gracefully instead of raising.
+            row = {}
+            for k, v in raw.items():
+                if isinstance(v, list):
+                    v = v[0] if v else ""
+                row[(k or "").strip().lower()] = (v or "").strip()
             tkr = row.get("ticker", "").upper()
             ig = row.get("industry_group", "")
             ind = row.get("industry", "")
@@ -293,6 +325,7 @@ def normalize_factset_snapshot(raw_path, sheet: str = RAW_SHEET_DEFAULT,
     valid_igroups = valid_industry_groups(inheritance)
     valid_inds = _valid_industries(inheritance)
     report.valid_igroups = sorted(valid_igroups)
+    report.industries_by_group = industries_for_groups(inheritance)
     manual = load_manual_classifications(manual_csv, valid_igroups, report.warnings)
     native_ig_col, native_ind_col = detect_native_columns(raw, valid_igroups, valid_inds)
 

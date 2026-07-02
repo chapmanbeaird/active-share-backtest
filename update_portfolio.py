@@ -16,7 +16,7 @@ What it does:
   3. If any stock is new/unclassified, STOPS and tells you which ones to add to
      data/manual_classifications.csv (it never guesses).
   4. Saves the cleaned snapshot into data/current-snapshots.xlsx.
-  5. Solves the optimizer and writes results-excel/portfolio_<date>.xlsx.
+  5. Solves the optimizer and writes results/portfolios/portfolio_<date>.xlsx.
   6. Files the processed export away in data/processed/.
 """
 
@@ -37,7 +37,7 @@ from generate_portfolio import generate_portfolio_excel
 PROJECT_ROOT = Path(__file__).parent
 INCOMING_DIR = PROJECT_ROOT / "data" / "incoming"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
-RESULTS_DIR = PROJECT_ROOT / "results-excel"
+RESULTS_DIR = PROJECT_ROOT / "results" / "portfolios"
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -110,18 +110,57 @@ def _resolve_choice(raw, valid):
     return None
 
 
-def classify_interactively(report, canonical):
-    """Ask the user, in the terminal, to assign an industry group to each new
-    stock. The GICS sector is already set from the file — only the group is
-    asked. Input must match one of the 20 groups exactly; 'q' quits.
+def _ask_industry(ticker, group, industries):
+    """Prompt for the stock's industry (display-only) within the chosen group.
 
-    Returns {ticker: industry_group} and fills the choices into `canonical`.
+    Offers the industries seen historically for `group` as numbered choices, but
+    accepts any free-text name so a genuinely new industry can be entered. 'q'
+    quits. Returns the chosen industry string (never blank — a value is always
+    captured so the manual CSV never stores an empty industry again).
+    """
+    industries = list(industries)
+    print(f"        Now choose {ticker}'s industry (shown for reference; not a constraint):")
+    if industries:
+        for j, ind in enumerate(industries, 1):
+            print(f"          {j:>2}. {ind}")
+        prompt = (f"        Enter a number 1-{len(industries)}, or type a new "
+                  f"industry name (or 'q' to quit): ")
+    else:
+        prompt = (f"        No industries recorded yet for '{group}'. "
+                  f"Type an industry name (or 'q' to quit): ")
+    while True:
+        try:
+            raw = input(prompt).strip()
+        except (EOFError, KeyboardInterrupt):
+            raw = "q"
+        if raw.lower() in _EXIT_WORDS:
+            print("\nExited — no portfolio was built and nothing was saved.")
+            sys.exit(EXIT_NEEDS_CLASSIFICATION)
+        if raw.isdigit() and industries:
+            i = int(raw)
+            if 1 <= i <= len(industries):
+                return industries[i - 1]
+            print(f"        Enter a number 1-{len(industries)}, a name, or 'q'.")
+            continue
+        if raw:
+            return raw
+        print("        An industry is required — pick a number, type a name, or 'q' to quit.")
+
+
+def classify_interactively(report, canonical):
+    """Ask the user, in the terminal, to assign an industry group AND industry to
+    each new stock. The GICS sector is already set from the file. The group must
+    match one of the 20 exactly; the industry is offered from history but any
+    name is accepted. 'q' quits.
+
+    Returns {ticker: (industry_group, industry)} and fills the choices into
+    `canonical`.
     """
     valid = report.valid_igroups
     n = len(report.unclassified)
     _bar()
-    print(f"{n} new stock(s) need an industry group.")
-    print("(The GICS sector is already set from the file — only the industry group is missing.)")
+    print(f"{n} new stock(s) need a classification.")
+    print("(The GICS sector is already set from the file — choose the industry group and industry.)")
     _bar()
     chosen = {}
     for i, u in enumerate(report.unclassified, 1):
@@ -145,9 +184,11 @@ def classify_interactively(report, canonical):
             if choice:
                 break
             print("        Not one of the 20 groups — enter a listed number or the exact name (or 'q' to quit).")
+        industry = _ask_industry(ticker, choice, report.industries_by_group.get(choice, []))
         canonical.loc[canonical["ticker"] == ticker, "industry_group"] = choice
-        chosen[ticker] = choice
-        print(f"        -> {ticker} = {choice}")
+        canonical.loc[canonical["ticker"] == ticker, "industry"] = industry
+        chosen[ticker] = (choice, industry)
+        print(f"        -> {ticker} = {choice} / {industry}")
     return chosen
 
 
@@ -193,7 +234,7 @@ def main():
             canonical["industry_group"] = canonical["industry_group"].fillna("Miscellaneous")
         elif sys.stdin.isatty():
             chosen = classify_interactively(report, canonical)
-            append_manual_classifications([(t, g, "") for t, g in chosen.items()])
+            append_manual_classifications([(t, g, ind) for t, (g, ind) in chosen.items()])
             print(f"\nSaved {len(chosen)} classification(s) to data/manual_classifications.csv "
                   "(so you won't be asked again).")
         else:

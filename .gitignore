@@ -10,3 +10,7 @@ data/incoming/*
 !data/incoming/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+
+# Generated quarterly portfolios (regenerated from each upload; keep the folder)
+results/portfolios/*
+!results/portfolios/.gitkeep

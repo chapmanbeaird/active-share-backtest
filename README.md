@@ -161,7 +161,7 @@ Holdings:        60 stocks
 Active share:    33.40%
 Sector check:    PASS (max deviation 2.00% vs 2.00% limit)
 Ind-group check: PASS (max deviation 2.00% vs 2.00% limit)
-Portfolio saved: results-excel/portfolio_2026-06.xlsx
+Portfolio saved: results/portfolios/portfolio_2026-06.xlsx
 ```
 Open that `portfolio_2026-06.xlsx` file to see your 60 stocks.
 
@@ -196,7 +196,7 @@ so you're only ever asked about each company **once** — future runs remember i
 
 ## 5. Understanding the output
 
-### Your portfolio: `results-excel/portfolio_<date>.xlsx`
+### Your portfolio: `results/portfolios/portfolio_<date>.xlsx`
 This is the deliverable. One sheet with three stacked tables:
 
 **SECTOR BREAKDOWN** and **INDUSTRY GROUP BREAKDOWN** — how your portfolio compares to
@@ -319,12 +319,14 @@ python3 run.py --start-year 2024 --end-year 2025    # quick 2-year test
 
 It pulls each stock's actual annual return from the FMP data service (this needs the
 `.env` key and an internet connection; the first run is slow, later runs use a cache)
-and compares to the official S&P 500 total-return numbers. It writes:
+and compares to the official S&P 500 total-return numbers. Everything it writes lands
+under `results/backtest/`:
 
-- `results/annual_performance_milp.csv` — year-by-year returns, active share, checks.
-- `results/summary_milp.csv` — overall statistics.
-- `results-excel/backtest_results.xlsx`, `portfolio_holdings.xlsx`,
-  `return_attribution.xlsx`, `Portfolio_individual_stock_returns.xlsx`.
+- `results/backtest/csv/` — `annual_performance.csv` (year-by-year returns,
+  active share, checks), `summary.csv` (overall statistics), `missing_tickers.csv`,
+  and the tax/turnover CSVs.
+- `results/backtest/excel/` — `backtest_results.xlsx`, `holdings.xlsx`,
+  `stock_returns.xlsx`, `return_attribution.xlsx`, `turnover_tax.xlsx`.
 
 **Note (future add-on):** the backtest currently works in **whole calendar years**. It
 does **not** yet measure returns for the new 3–6-month snapshots going forward — that
@@ -362,22 +364,30 @@ rather than duplicating them.
 - **MILP** — the optimization method that finds the provably best answer.
 - **Snapshot** — one point-in-time picture of the index (one FactSet export).
 
-**What you touch**
-| Path | What it is |
-|---|---|
-| `data/incoming/` | **Drop your FactSet export here.** |
-| `Update Portfolio.command` | **Double-click to run.** |
-| `results-excel/portfolio_<date>.xlsx` | **Your 60-stock portfolio (the output).** |
-| `data/manual_classifications.csv` | The tool's saved answers for new stocks (rarely edited by hand). |
+**Where everything lives**
+```
+data/
+  incoming/                     <- DROP your FactSet export here
+  processed/                    <- raw exports after processing (archive)
+  current-snapshots.xlsx        <- cleaned, house-format copy of each snapshot
+  manual_classifications.csv    <- saved industry-group answers for new stocks
+  1999-2025-S&P500-cleaned.xlsx <- frozen historical benchmark (never changes)
 
-**What the tool manages for you (don't edit)**
-| Path | What it is |
-|---|---|
-| `data/current-snapshots.xlsx` | Cleaned, converted copies of each snapshot. |
-| `data/processed/` | Archive of FactSet files already processed. |
-| `data/1999-2025-S&P500-cleaned.xlsx` | Frozen historical data (never changes). |
-| `src/` | The program code. |
-| `venv/`, `cache/` | The Python toolbox and the data cache. |
+results/
+  portfolios/                   <- YOUR quarterly deliverable
+    portfolio_<date>.xlsx
+  backtest/                     <- the 2000-2025 study (advanced/optional)
+    excel/                      <- backtest_results, holdings, stock_returns, ...
+    csv/                        <- annual_performance, summary, tax/turnover, ...
+
+Update Portfolio.command        <- DOUBLE-CLICK to run
+src/                            <- the program code
+venv/, cache/                   <- Python toolbox + data cache (don't edit)
+```
+
+**What you touch:** drop a file in `data/incoming/`, double-click `Update Portfolio.command`,
+open your portfolio in `results/portfolios/`. Everything else the tool manages for you.
+Your quarterly portfolio files are generated fresh each run (they're not stored in git).
 
 **Commands at a glance**
 ```

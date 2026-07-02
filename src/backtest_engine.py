@@ -19,7 +19,9 @@ warnings.filterwarnings('ignore')
 
 # Constants
 PROJECT_ROOT = Path(__file__).parent.parent
-RESULTS_DIR = PROJECT_ROOT / "results"
+RESULTS_DIR = PROJECT_ROOT / "results" / "backtest"
+CSV_DIR = RESULTS_DIR / "csv"
+EXCEL_DIR = RESULTS_DIR / "excel"
 BENCHMARK_TICKER = "SPY"
 
 # S&P 500 Total Return Index (SPXTR) official calendar-year returns
@@ -570,21 +572,21 @@ def save_results(results_df: pd.DataFrame, missing_df: pd.DataFrame, portfolios:
                   stock_returns: Dict = None):
     """Save results to CSV and Excel files."""
     # CSV
-    RESULTS_DIR.mkdir(exist_ok=True)
-    results_df.to_csv(RESULTS_DIR / "annual_performance_milp.csv", index=False)
+    CSV_DIR.mkdir(parents=True, exist_ok=True)
+    results_df.to_csv(CSV_DIR / "annual_performance.csv", index=False)
 
     stats = calculate_summary_stats(results_df)
     if stats:
-        pd.DataFrame([stats]).to_csv(RESULTS_DIR / "summary_milp.csv", index=False)
+        pd.DataFrame([stats]).to_csv(CSV_DIR / "summary.csv", index=False)
 
     if len(missing_df) > 0:
-        missing_df.to_csv(RESULTS_DIR / "missing_tickers.csv", index=False)
+        missing_df.to_csv(CSV_DIR / "missing_tickers.csv", index=False)
 
-    print(f"\nCSV results saved to {RESULTS_DIR}/")
+    print(f"\nCSV results saved to {CSV_DIR}/")
 
-    # Excel — backtest results
-    excel_dir = PROJECT_ROOT / "results-excel"
-    excel_dir.mkdir(exist_ok=True)
+    # Excel — backtest workbooks
+    excel_dir = EXCEL_DIR
+    excel_dir.mkdir(parents=True, exist_ok=True)
 
     with pd.ExcelWriter(excel_dir / "backtest_results.xlsx", engine='openpyxl') as writer:
         results_df.to_excel(writer, sheet_name='Annual Performance', index=False)
@@ -616,7 +618,7 @@ def save_portfolio_holdings(portfolios: Dict[int, pd.DataFrame], excel_dir: Path
     2. Industry_Group breakdown (portfolio vs benchmark weight + difference)
     3. Stock-level detail with active share contribution
     """
-    with pd.ExcelWriter(excel_dir / "portfolio_holdings.xlsx", engine='openpyxl') as writer:
+    with pd.ExcelWriter(excel_dir / "holdings.xlsx", engine='openpyxl') as writer:
         for year in sorted(portfolios.keys()):
             portfolio = portfolios[year]
             benchmark = load_benchmark_from_xlsx(year - 1)  # snapshot year = holding year - 1
@@ -722,7 +724,7 @@ def save_portfolio_holdings(portfolios: Dict[int, pd.DataFrame], excel_dir: Path
             row += 1
             stock_df.to_excel(writer, sheet_name=str(year), startrow=row, index=False)
 
-    print(f"Portfolio holdings saved to {excel_dir}/portfolio_holdings.xlsx")
+    print(f"Portfolio holdings saved to {excel_dir}/holdings.xlsx")
 
 
 def save_portfolio_snapshots(portfolios: Dict[int, pd.DataFrame],
@@ -732,7 +734,7 @@ def save_portfolio_snapshots(portfolios: Dict[int, pd.DataFrame],
     Save a workbook with one sheet per year showing the 60 held stocks,
     their portfolio weight, benchmark weight, and annual return from FMP.
     """
-    with pd.ExcelWriter(excel_dir / "Portfolio_individual_stock_returns.xlsx", engine='openpyxl') as writer:
+    with pd.ExcelWriter(excel_dir / "stock_returns.xlsx", engine='openpyxl') as writer:
         for year in sorted(portfolios.keys()):
             portfolio = portfolios[year]
             benchmark = load_benchmark_from_xlsx(year - 1)  # snapshot year = holding year - 1
@@ -776,7 +778,7 @@ def save_portfolio_snapshots(portfolios: Dict[int, pd.DataFrame],
             header_df.to_excel(writer, sheet_name=sheet_name, startrow=0, index=False, header=False)
             snapshot.to_excel(writer, sheet_name=sheet_name, startrow=2, index=False)
 
-    print(f"Portfolio snapshots saved to {excel_dir}/Portfolio_individual_stock_returns.xlsx")
+    print(f"Portfolio snapshots saved to {excel_dir}/stock_returns.xlsx")
 
 
 def save_attribution_report(portfolios: Dict[int, pd.DataFrame],

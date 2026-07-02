@@ -527,8 +527,8 @@ def save_turnover_and_tax_results(
     turnover_df: pd.DataFrame,
     no_harvest_df: pd.DataFrame,
     with_harvest_df: pd.DataFrame,
-    results_dir: str = 'results',
-    excel_dir: str = 'results-excel',
+    results_dir: str = 'results/backtest/csv',
+    excel_dir: str = 'results/backtest/excel',
 ):
     """Save turnover and tax analysis to CSV and Excel."""
     os.makedirs(results_dir, exist_ok=True)
@@ -543,7 +543,7 @@ def save_turnover_and_tax_results(
     print(f"Tax simulation saved to {results_dir}/tax_no_harvesting.csv, tax_with_harvesting.csv")
 
     # Excel workbook
-    excel_path = f'{excel_dir}/turnover_tax_analysis.xlsx'
+    excel_path = f'{excel_dir}/turnover_tax.xlsx'
     with pd.ExcelWriter(excel_path, engine='openpyxl') as writer:
         turnover_df.to_excel(writer, sheet_name='Turnover', index=False)
         no_harvest_df.to_excel(writer, sheet_name='Tax - No Harvesting', index=False)
