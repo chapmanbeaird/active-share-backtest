@@ -3,3 +3,10 @@ __pycache__/
 venv/
 .env
 cache/
+.DS_Store
+
+# Quarterly drop/archive folders: keep the folders, ignore their contents
+data/incoming/*
+!data/incoming/.gitkeep
+data/processed/*
+!data/processed/.gitkeep

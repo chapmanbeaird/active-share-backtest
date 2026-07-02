@@ -9,18 +9,25 @@ PROJECT_ROOT = Path(__file__).parent.parent
 XLSX_PATH = PROJECT_ROOT / "data" / "1999-2025-S&P500-cleaned.xlsx"
 
 
-def load_benchmark_from_xlsx(year: int) -> pd.DataFrame:
+def load_benchmark_from_xlsx(sheet, path: Path = XLSX_PATH, header: int = 6) -> pd.DataFrame:
     """
-    Load S&P 500 benchmark snapshot for a given year from the cleaned xlsx file.
+    Load an S&P 500 benchmark snapshot from a cleaned xlsx workbook.
+
+    Works for both the frozen historical workbook (default `path`) and the
+    quarterly `data/current-snapshots.xlsx` — both use the same sheet layout
+    (header on row 7, i.e. header index 6), so one loader serves both.
 
     Args:
-        year: Year to load (1999-2025)
+        sheet: Sheet name to load. Accepts an int year (e.g. 2024) or a string
+            label (e.g. "2026-06"); it is coerced to str for the lookup.
+        path: Workbook to read from. Defaults to the historical workbook.
+        header: 0-indexed header row (default 6 = the 7th row).
 
     Returns:
         DataFrame with columns ['ticker', 'weight', 'sector', 'industry_group', 'industry', 'company_name']
         Weights normalized to sum to exactly 100%.
     """
-    df = pd.read_excel(XLSX_PATH, sheet_name=str(year), header=6)
+    df = pd.read_excel(path, sheet_name=str(sheet), header=header)
 
     # Rename columns
     col_map = {

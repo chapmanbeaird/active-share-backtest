@@ -17,6 +17,10 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Repo root, so the cache lives in <project>/cache/fmp regardless of the
+# working directory the process was launched from (e.g. a double-click launcher).
+PROJECT_ROOT = Path(__file__).parent.parent
+
 
 class FMPClient:
     """
@@ -32,7 +36,7 @@ class FMPClient:
     BASE_URL = "https://financialmodelingprep.com/api/v3"
     STABLE_URL = "https://financialmodelingprep.com/stable"
 
-    def __init__(self, api_key: str = None, cache_dir: str = "./cache/fmp",
+    def __init__(self, api_key: str = None, cache_dir: str = None,
                  rate_limit: int = 300, use_cache: bool = True):
         """
         Initialize FMP client.
@@ -47,7 +51,7 @@ class FMPClient:
         if not self.api_key:
             raise ValueError("FMP API key required. Set FMP_API_KEY in .env or pass api_key parameter.")
 
-        self.cache_dir = Path(cache_dir)
+        self.cache_dir = Path(cache_dir) if cache_dir else PROJECT_ROOT / "cache" / "fmp"
         self.use_cache = use_cache
         self.rate_limit = rate_limit
         self._call_timestamps: List[float] = []
