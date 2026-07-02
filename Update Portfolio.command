@@ -24,7 +24,7 @@ STATUS=$?
 
 echo ""
 if [ $STATUS -eq 0 ]; then
-    echo "Finished successfully. Your portfolio Excel is in the results-excel folder."
+    echo "Finished successfully. Your portfolio Excel is in the results/portfolios folder."
 elif [ $STATUS -eq 2 ]; then
     echo "Action needed: a few new stocks must be classified (see the message above)."
 else

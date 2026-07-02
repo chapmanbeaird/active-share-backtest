@@ -9,10 +9,10 @@ that has no forward returns yet (e.g. a 6/30 mid-year S&P snapshot).
 
 Usage:
     # New 6/30 snapshot added to the workbook as a sheet named "2026-06"
-    python3 generate_portfolio.py --sheet 2026-06
+    python3 src/generate_portfolio.py --sheet 2026-06
 
     # Sanity-check against an existing year-end sheet
-    python3 generate_portfolio.py --sheet 2025
+    python3 src/generate_portfolio.py --sheet 2025
 """
 import argparse
 import sys
@@ -21,7 +21,10 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+# This module lives in src/; add its own directory so sibling modules import
+# whether it's run directly (python3 src/generate_portfolio.py) or imported by a
+# root entry point that already put src/ on the path (update_portfolio.py).
+sys.path.insert(0, str(Path(__file__).parent))
 from data_loader import load_benchmark_from_xlsx
 from milp_optimizer import MILPActiveShareOptimizer
 

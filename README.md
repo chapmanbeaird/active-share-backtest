@@ -416,6 +416,7 @@ data/
   current-snapshots.xlsx        <- cleaned, house-format copy of each snapshot
   manual_classifications.csv    <- saved industry-group + industry answers for new stocks
   1999-2025-S&P500-cleaned.xlsx <- frozen historical benchmark (never changes)
+  missing-tickers/              <- reference data for the backtest's ticker checks
 
 results/
   portfolios/                   <- YOUR quarterly deliverable
@@ -424,8 +425,12 @@ results/
     excel/                      <- backtest_results, holdings, stock_returns, ...
     csv/                        <- annual_performance, summary, tax/turnover, ...
 
+docs/                           <- background notes & research (not needed to run)
+
 Update Portfolio.command        <- DOUBLE-CLICK to run
-src/                            <- the program code
+update_portfolio.py             <- the quarterly build (what the launcher runs)
+run.py                          <- the optional historical backtest
+src/                            <- the rest of the program code (incl. generate_portfolio.py)
 venv/, cache/                   <- Python toolbox + data cache (don't edit)
 ```
 
