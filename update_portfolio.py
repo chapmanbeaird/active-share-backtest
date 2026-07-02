@@ -29,6 +29,7 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from snapshot_normalizer import (
     normalize_factset_snapshot, run_qc, SnapshotError, RAW_SHEET_DEFAULT,
+    append_manual_classifications,
 )
 from snapshot_store import write_snapshot_sheet, SNAPSHOT_PATH
 from generate_portfolio import generate_portfolio_excel
@@ -88,6 +89,68 @@ def print_unclassified_stop(report, csv_path: Path) -> None:
     _bar()
 
 
+_EXIT_WORDS = {"q", "quit", "exit"}
+
+
+def _resolve_choice(raw, valid):
+    """Map a typed answer to exactly one of the 20 groups.
+
+    Returns the canonical group name, the string 'EXIT' to quit, or None if the
+    input doesn't match a listed number or an exact group name.
+    """
+    raw = raw.strip()
+    if raw.lower() in _EXIT_WORDS:
+        return "EXIT"
+    if raw.isdigit():
+        i = int(raw)
+        return valid[i - 1] if 1 <= i <= len(valid) else None
+    for g in valid:  # exact name match (case-insensitive); return canonical spelling
+        if raw.lower() == g.lower():
+            return g
+    return None
+
+
+def classify_interactively(report, canonical):
+    """Ask the user, in the terminal, to assign an industry group to each new
+    stock. The GICS sector is already set from the file — only the group is
+    asked. Input must match one of the 20 groups exactly; 'q' quits.
+
+    Returns {ticker: industry_group} and fills the choices into `canonical`.
+    """
+    valid = report.valid_igroups
+    n = len(report.unclassified)
+    _bar()
+    print(f"{n} new stock(s) need an industry group.")
+    print("(The GICS sector is already set from the file — only the industry group is missing.)")
+    _bar()
+    chosen = {}
+    for i, u in enumerate(report.unclassified, 1):
+        ticker, name = u["ticker"], u["company_name"]
+        sec = canonical.loc[canonical["ticker"] == ticker, "sector"]
+        sector = sec.iloc[0] if len(sec) else "?"
+        print(f"\n[{i}/{n}]  {ticker} — {name}")
+        print(f"        Sector (already set): {sector}")
+        print("        Choose its industry group (one of these 20):")
+        for j, g in enumerate(valid, 1):
+            print(f"          {j:>2}. {g}")
+        while True:
+            try:
+                raw = input(f"        Enter a number 1-{len(valid)}, the exact group name, or 'q' to quit: ")
+            except (EOFError, KeyboardInterrupt):
+                raw = "q"
+            choice = _resolve_choice(raw, valid)
+            if choice == "EXIT":
+                print("\nExited — no portfolio was built and nothing was saved.")
+                sys.exit(EXIT_NEEDS_CLASSIFICATION)
+            if choice:
+                break
+            print("        Not one of the 20 groups — enter a listed number or the exact name (or 'q' to quit).")
+        canonical.loc[canonical["ticker"] == ticker, "industry_group"] = choice
+        chosen[ticker] = choice
+        print(f"        -> {ticker} = {choice}")
+    return chosen
+
+
 def main():
     parser = argparse.ArgumentParser(description="Build the current portfolio from a FactSet export")
     parser.add_argument("--file", default=None, help="Path to the FactSet export (default: the one in data/incoming/)")
@@ -122,14 +185,21 @@ def main():
     for w in report.warnings:
         print(f"  NOTE: {w}")
 
-    # --- Halt on unclassified (unless explicitly overridden) ---
-    if report.unclassified and not args.allow_unclassified:
-        print_unclassified_stop(report, Path("data/manual_classifications.csv"))
-        sys.exit(EXIT_NEEDS_CLASSIFICATION)
-    if report.unclassified and args.allow_unclassified:
-        tickers = [u["ticker"] for u in report.unclassified]
-        print(f"  WARNING: bucketing {len(tickers)} unclassified stock(s) as 'Miscellaneous': {tickers}")
-        canonical["industry_group"] = canonical["industry_group"].fillna("Miscellaneous")
+    # --- New/unclassified stocks: ask interactively, bucket, or halt ---
+    if report.unclassified:
+        if args.allow_unclassified:
+            tickers = [u["ticker"] for u in report.unclassified]
+            print(f"  WARNING: bucketing {len(tickers)} unclassified stock(s) as 'Miscellaneous': {tickers}")
+            canonical["industry_group"] = canonical["industry_group"].fillna("Miscellaneous")
+        elif sys.stdin.isatty():
+            chosen = classify_interactively(report, canonical)
+            append_manual_classifications([(t, g, "") for t, g in chosen.items()])
+            print(f"\nSaved {len(chosen)} classification(s) to data/manual_classifications.csv "
+                  "(so you won't be asked again).")
+        else:
+            # Not an interactive terminal (e.g. automation) — can't prompt; stop safely.
+            print_unclassified_stop(report, Path("data/manual_classifications.csv"))
+            sys.exit(EXIT_NEEDS_CLASSIFICATION)
 
     label = report.as_of_label
 

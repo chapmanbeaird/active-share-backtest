@@ -166,18 +166,31 @@ Portfolio saved: results-excel/portfolio_2026-06.xlsx
 Open that `portfolio_2026-06.xlsx` file to see your 60 stocks.
 
 ### Step 5 — (Sometimes) classify a few new stocks
-Occasionally the index adds a **brand-new company** the tool has never seen. When
-that happens it **stops safely** and lists them, for example:
+Occasionally the index adds a **brand-new company** the tool has never seen. The
+**sector** always comes straight from the file, but the tool won't guess the
+**industry group** — so it **asks you, right there in the window**, one company at a
+time:
 ```
-STOPPED — 7 stock(s) are new and need a category
-Ticker   Company
-BNY      Bank of New York Mellon Corp
-CASY     Casey's General Stores, Inc.
-...
+[1/7]  BNY — Bank of New York Mellon Corp
+        Sector (already set): Financials
+        Choose its industry group (one of these 20):
+           1. Commercial Services
+           2. Communications
+           ...
+           9. Finance
+           ...
+          20. Utilities
+        Enter a number 1-20, the exact group name, or 'q' to quit: 9
+        -> BNY = Finance
 ```
-This is normal — it never guesses. Open **`data/manual_classifications.csv`**, add one
-line per listed ticker (see [section 6](#6-the-manual-classification-file)), save,
-and run again. You only ever classify each company once.
+Just type the **number** of the best-fitting group (or the exact group name). It only
+accepts one of the 20 groups; anything else re-asks. Type **`q`** to quit without
+saving. Your answers are **saved automatically** to `data/manual_classifications.csv`,
+so you're only ever asked about each company **once** — future runs remember it.
+
+> Tip: pick the group that best matches the company's business — a bank → `Finance`, a
+> software company → `Technology Services`, a chip/hardware maker → `Electronic
+> Technology`. (Full list and guidance in [section 6](#6-the-manual-classification-file).)
 
 ---
 
@@ -227,11 +240,16 @@ into `data/processed/` so the inbox is clean for next time.
 
 ## 6. The manual classification file
 
-**File:** `data/manual_classifications.csv` — open it in Excel or any text editor.
+**File:** `data/manual_classifications.csv` — the tool's memory of the groups you've
+assigned.
 
 **Why it exists:** the tool figures out each stock's industry group by looking up its
 **history** (the same company always keeps the same group). A company that's brand new
-to the index has no history, so you tell it the group **once**, here.
+to the index has no history, so the tool asks you once (Step 5) and **records your
+answer here** so it never has to ask again.
+
+**You normally don't touch this file** — the interactive prompt writes to it for you.
+But you can open it in Excel or any text editor to review or change a past answer.
 
 **Format:** three columns. `industry` is optional (it's display-only).
 ```
@@ -239,7 +257,8 @@ ticker,industry_group,industry
 VRT,Producer Manufacturing,Electrical Products
 ```
 
-**The `industry_group` must be exactly one of these 20 names:**
+**The `industry_group` must be exactly one of these 20 names** (the same list the prompt
+shows you):
 
 ```
 Commercial Services      Finance                  Process Industries
@@ -273,14 +292,16 @@ things to check.
 4. **Industry group is recovered from history by ticker — not from the export.** The
    FactSet "Active Share" report gives *GICS* industry groups, which are a different
    system from the 20 groups this project uses. So the tool looks each stock up in the
-   historical data instead. New names go through the manual file (section 6).
+   historical data instead. New names are asked about interactively (Step 5) and
+   remembered in the manual file (section 6).
 5. **Tickers are converted to house format:** the `-US` country suffix is removed and
    share-class dots are kept (`GOOGL-US` → `GOOGL`, `BRK.B-US` → `BRK.B`).
 6. **The snapshot date is read from inside the file** (the `30-JUN-2026`-style cell) and
    becomes the label, like `2026-06`. If it can't be found, you can pass `--as-of 2026-06`.
 7. **Your historical workbook is never modified.** `data/1999-2025-S&P500-cleaned.xlsx`
    stays frozen; new snapshots go into the separate `data/current-snapshots.xlsx`.
-8. **The tool never guesses a classification.** Anything it can't place stops the run.
+8. **The tool never guesses a classification.** For a new stock it asks you in the
+   terminal (or, in a non-interactive/automated run, stops safely).
 
 ---
 
@@ -317,7 +338,7 @@ added later.
 
 | What you see | What to do |
 |---|---|
-| **"STOPPED — N stock(s) are new"** | Normal. Add the listed tickers to `data/manual_classifications.csv` (section 6) and run again. |
+| **It asks "N new stock(s) need an industry group"** | Normal — type the number of the best-fitting group for each (or `q` to quit). Your answers are saved automatically (section 6). |
 | **"no .xlsx file found in data/incoming"** | Put your FactSet export into the `data/incoming/` folder. |
 | **"found N files … expected exactly one"** | Leave only the newest export in `data/incoming/`; remove the others. |
 | **"missing expected column(s)"** | The file isn't the "Active Share" report, or the sheet name differs. Check the export, or pass `--sheet "<name>"`. |
@@ -346,8 +367,8 @@ rather than duplicating them.
 |---|---|
 | `data/incoming/` | **Drop your FactSet export here.** |
 | `Update Portfolio.command` | **Double-click to run.** |
-| `data/manual_classifications.csv` | Where you classify brand-new stocks. |
 | `results-excel/portfolio_<date>.xlsx` | **Your 60-stock portfolio (the output).** |
+| `data/manual_classifications.csv` | The tool's saved answers for new stocks (rarely edited by hand). |
 
 **What the tool manages for you (don't edit)**
 | Path | What it is |

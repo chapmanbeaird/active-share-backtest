@@ -192,6 +192,33 @@ def load_manual_classifications(csv_path=MANUAL_CSV_PATH,
     return result
 
 
+def append_manual_classifications(entries, csv_path=MANUAL_CSV_PATH) -> None:
+    """Append (ticker, industry_group, industry) rows to the manual CSV for any
+    tickers not already present, so a choice made once is remembered next run.
+    Creates the file (with a header) if it doesn't exist.
+    """
+    csv_path = Path(csv_path)
+    existing = set()
+    if csv_path.exists():
+        with open(csv_path, newline="") as fh:
+            for row in csv.DictReader(fh):
+                t = (row.get("ticker") or "").strip().upper()
+                if t:
+                    existing.add(t)
+    new_rows = [(str(t).strip().upper(), ig, ind) for (t, ig, ind) in entries
+                if str(t).strip().upper() not in existing]
+    if not new_rows:
+        return
+    write_header = not csv_path.exists()
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(csv_path, "a", newline="") as fh:
+        writer = csv.writer(fh)
+        if write_header:
+            writer.writerow(["ticker", "industry_group", "industry"])
+        for t, ig, ind in new_rows:
+            writer.writerow([t, ig, ind])
+
+
 # ---------------------------------------------------------------------------
 # Native-column detection (future-proofing)
 # ---------------------------------------------------------------------------
