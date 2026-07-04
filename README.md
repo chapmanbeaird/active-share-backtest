@@ -51,7 +51,11 @@ an updated 60-stock portfolio.
 You only do this **once** on a given computer.
 
 1. **Install Python** (version 3.10 or newer) from <https://www.python.org/downloads/>.
-   On a Mac it may already be installed.
+   - **Windows:** on the very first screen of the installer, tick the box
+     **"Add python.exe to PATH"** before clicking Install. This one checkbox is what
+     lets the launcher find Python — don't skip it.
+   - **Mac:** Python is often already installed. If the first run tells you it's missing,
+     install it from the link above.
 2. **Get the project folder** onto your computer (the folder containing this README).
 3. **Add the data key.** There is a file named `.env` in the project folder that holds
    the FactSet/FMP data key. It is needed only for the optional historical backtest,
@@ -131,6 +135,11 @@ index weight. This barely changes active share but prevents silly concentration.
 
 Every 3–6 months:
 
+> **Windows vs. Mac:** the only difference is which launcher you double-click and, if you
+> ever fall back to a terminal, one word in the command. This guide writes terminal
+> commands the Mac way (`python3 …`); **on Windows type `python` instead of `python3`**.
+> Everything else — the folders, the output, the prompts — is identical.
+
 ### Step 1 — Export the S&P 500 from FactSet
 Pull the **"Active Share" report** (Vanguard 500 Index Fund vs. S&P 500) as an Excel
 file. It should have one row per stock with a **ticker**, the stock's **weight**, and
@@ -142,13 +151,27 @@ Put that one Excel file into the **`data/incoming/`** folder. Make sure it's the
 **only** file in there.
 
 ### Step 3 — Run it
-**Easiest:** double-click **`Update Portfolio.command`** in the project folder. A
-window opens, does the work, and shows the result.
 
-**Or**, from a terminal in the project folder:
-```
-python3 update_portfolio.py
-```
+**Easiest — double-click the launcher for your computer:**
+
+| Your computer | Double-click this file in the project folder |
+|---|---|
+| **Windows** | **`Update Portfolio.bat`** |
+| **Mac** | **`Update Portfolio.command`** |
+
+A window opens, does the work, and shows the result. The **first** run takes an extra
+minute while it quietly builds its Python toolbox (the *venv*); every run after that is
+quick.
+
+> **Windows — if you see a security warning the first time:** because the file came from
+> another computer, Windows may show a **"Windows protected your PC"** box or an **"Open
+> File – Security Warning"**. Click **More info → Run anyway** (or **Run**). This is
+> expected for a script you were handed; you only confirm it once.
+
+**Or**, from a terminal / command prompt opened in the project folder:
+
+- **Windows:** `python update_portfolio.py`
+- **Mac:** `python3 update_portfolio.py`
 
 ### Step 4 — Read the result
 You'll see a plain-English summary, for example:
@@ -390,7 +413,9 @@ added later.
 | **"missing expected column(s)"** | The file isn't the "Active Share" report, or the sheet name differs. Check the export, or pass `--sheet "<name>"`. |
 | **"Unexpected sector name(s)"** | The export's sectors aren't the standard 11 GICS — likely the wrong report or a format change. |
 | **"Found N constituents — far outside ~500"** | Wrong sheet or file. Check what you exported. |
-| **The double-click window closed instantly** | Open the Terminal app, drag the project folder in, and run `python3 update_portfolio.py` to see the message. |
+| **The double-click window closed instantly (Mac)** | Open the Terminal app, drag the project folder in, and run `python3 update_portfolio.py` to read the message. |
+| **The window closed too fast to read it (Windows)** | Open **Command Prompt**, type `cd ` (with a trailing space), drag the project folder onto the window, press Enter, then run `python update_portfolio.py`. |
+| **"Python was not found" / the launcher can't find Python (Windows)** | Python isn't installed or wasn't added to PATH. Reinstall from <https://www.python.org/downloads/> and tick **"Add python.exe to PATH"** (section 2), then run the launcher again. |
 | **Couldn't find the snapshot date** | Add `--as-of 2026-06` (use your snapshot's year-month). |
 
 To re-run any time, it's safe: re-running overwrites that date's snapshot and portfolio
@@ -427,18 +452,20 @@ results/
 
 docs/                           <- background notes & research (not needed to run)
 
-Update Portfolio.command        <- DOUBLE-CLICK to run
+Update Portfolio.bat            <- Windows: DOUBLE-CLICK to run
+Update Portfolio.command        <- Mac: DOUBLE-CLICK to run
 update_portfolio.py             <- the quarterly build (what the launcher runs)
 run.py                          <- the optional historical backtest
 src/                            <- the rest of the program code (incl. generate_portfolio.py)
 venv/, cache/                   <- Python toolbox + data cache (don't edit)
 ```
 
-**What you touch:** drop a file in `data/incoming/`, double-click `Update Portfolio.command`,
+**What you touch:** drop a file in `data/incoming/`, double-click the launcher for your
+computer (**`Update Portfolio.bat`** on Windows, **`Update Portfolio.command`** on Mac),
 open your portfolio in `results/portfolios/`. Everything else the tool manages for you.
 Your quarterly portfolio files are generated fresh each run (they're not stored in git).
 
-**Commands at a glance**
+**Commands at a glance** (Mac shown; on **Windows** type `python` instead of `python3`)
 ```
 python3 update_portfolio.py            # build the current portfolio from data/incoming/
 python3 update_portfolio.py --file "path/to/export.xlsx"   # use a specific file
